@@ -1,0 +1,66 @@
+---
+title: ""
+output: pdf_document
+bibliography: lg.bib
+indent: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##
+
+\pagenumbering{gobble}
+
+\vspace{1cm}
+
+\begin{flushright}
+Håkon Otneim \\
+Department of Business and Management Science \\
+NHH Norwegian School of Economics \\
+Helleveien 30, 5045 Bergen
+Norway
+\end{flushright}
+
+
+\noindent 23 September 2019
+
+\vspace{1cm}
+
+
+### Dear Editor.
+
+I wish to submit an original research article entitled *lg: An R-package for local Gaussian approximations* for consideration by the *R Journal*. I confirm that this work is original, and that it has not been published elsewhere, nor is it currently under consideration for publication elsewhere.
+
+There have in recent years been published a large number of papers developing statistical methodology using local Gaussian approximations. The papers appear in very good statistics journals such as *Journal of Econometrics*, *Journal of Business and Economic Statistics*, *Journal of Empirical Finance*, *Statistics and Computing* and *Journal of Time Series Analysis*, and they develop various aspects and applications of the concept. Simply stated, one may approximate a general joint probability density function $f(x)$ locally using a multivariate normal distribution:
+
+$$f(x) = f(x, \mu(x), \Sigma(x)),$$
+where the local parameter functions $\mu(x)$ and $\Sigma(x)$ are estimated from data by means of a local likelihood procedure. The off-diagonal elements in the local correlation matrix $\Sigma(x)$ have been termed *local Gaussian correlations* (LGC) and are taken as measures of nonlinear dependence between stochastic variables. This construction is applied to e.g. density estimation and independence testing, both for independent observations and in time series analysis.
+
+The first paper in this series [@tjos:huft:2013] was quickly followed by an R-package **localgauss** and a companion paper [@bere:klep:tjos:2014] that implements and describes the basic estimation problem, but this package has not been updated with new functionality as new methods have been published. Quite on the contrary: due to incompatibility issues with the **ggplot2**-package, the authors of **localgauss** removed the plotting capabilities from their package, while authors of new statistical methods using the LGC (of whom I am one) have kept their own separate R-scripts to be shared upon request.
+
+Two factors prompted me to write the new R package **lg** for applications of the LGC, as well as a companion paper:
+
+1. I, my colleagues and my co-authors receive many requests for code for implementation of the statistical methods that we have published. This is not sustainable in the long run, because there exist several versions of the same scripts, and also because several authors have left the academic world, and more may do so in the future.
+2. I am not aware of new major methodological developments using the LGC that is currently under development. The literature cited in the submitted paper represents a mature body of work, carried out by several researchers, and published in good journals. My R package provides a unified framework to carry out all LGC-based statistical methods, except some work on spectral analysis that will be published in a separate package by another author, and it will likely stay relevant and be cited as long as the LGC, in its various shapes and forms, is applied in empirical problems.
+
+Besides describing the use and principles of the **lg**-package, the paper that I now submit for publication provides an up-to-date survey of important developments in the LGC framework that will be useful to a broader audience than R programmers alone, which is why I believe that the paper is appropriate for publication by the *R Journal*.
+
+Code for easy replication of all examples in the paper has been submitted as a separate supplement to the article. 
+
+I have no conflicts of interest to disclose.
+
+Please address all correspondence concerning this manuscript to me at \texttt{hakon.otneim@nhh.no}.
+
+Thank you for your consideration of the manuscript.
+
+\vspace{1cm}
+
+\noindent Sincerely,
+
+\vspace{.5cm}
+
+\noindent Håkon Otneim 
+
+## References
