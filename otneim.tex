@@ -21,11 +21,13 @@ In Section \ref{chap:background} we provide a brief introduction to the LGC as w
 \section{Statistical background} 
 \label{chap:background}
 
-Consider a random vector $X$ having the unknown probability density function $f_X(x)$. Based on a random sample $X_1,\ldots, X_n$ we wish to produce an estimate $\widehat f_X(x)$ of $f_X(x)$, to which end the statistical literature provides an abundance of methods. One may, for example, assume that $f_X \in F_{\theta}$, where $F_{\theta} = \{f(x;\theta), \theta \in \Theta\}$ is a family of density functions indexed by some parameter $\theta$ living in a parameter space $\Theta$, and estimate $\theta$ by means of the maximum likelihood method. On the other hand, we may estimate $f_X(\cdot)$ directly from the data using the classical kernel density estimator 
-$$\widehat f_X(x) = \frac{1}{nb}\sum_{i=1}^n K\left(\frac{X_i - x}{b}\right),$$
-where $K$ is a symmetric density function (the kernel) and $b$ is a tuning parameter (the bandwidth) controlling the smoothness of $\widehat f_X(\cdot)$. This requires very little prior assumptions. There is a massive literature on density estimation that include countless variations of the parametric and nonparametric approaches, as well as many other clever and creative techniques. 
+Consider a random vector $X$ having the unknown probability density function $f_X(x)$. It is a standard task to estimate $f_X$ based on a random sample $X_1,\ldots, X_n$, and the statistical literature provides an abundance of methods to accomplish this. One may, for example, make the assumption that the unknown density function has a particular parametric form, $f_X \in F_{\theta}$, where $F_{\theta} = \{f(x;\theta), \theta \in \Theta\}$ is a family of probability density functions indexed by some parameter $\theta$, and where $\Theta$ is the parameter space. Under this assumption we will typically produce an estimate of the parameter $\theta$, written $\widehat \theta$, using the maximum likelihood method. The estimated probability density function is then given as $\widehat f_X(x) = f(x; \widehat\theta)$.
 
-\citet{hjor:jone:1996} provide one such idea. They consider a parametric family $F_{\theta}$, but instead of searching for a single parameter value $\theta_0$ for which $f_X(x) = f(x;\theta_0)$ (or approximately so), they rather assert that different members of $F_{\theta}$ may approximate $f_X$, locally, in different parts of its domain. In other words, they seek to estimate a parameter \emph{function} $\theta_0(x)$ for which $f_X(x) = f(x;\theta_0(x))$ (or approximately so), and do this by pointwise maximizing a \emph{local likelihood function}:
+A different approach is to estimate $f_X(\cdot)$ without any prior parametric assumptions. The classical method for non-parametric denstity estimation is the kernel estimator 
+$$\widehat f_X(x) = \frac{1}{nb}\sum_{i=1}^n K\left(\frac{X_i - x}{b}\right),$$
+where $K$ is a symmetric density function (the kernel) and $b$ is a tuning parameter (the bandwidth) that controls the smoothness of the estimate $\widehat f_X(\cdot)$. See \citet{silv:1986} for an introduction to this topic. There is also a massive statistical literature on density estimation containing extensions and improvements to the classical methods to be used in various practical situations. 
+
+\citet{hjor:jone:1996} provide one such idea. They consider a parametric family $F_{\theta}$, but instead of searching for a single parameter value $\theta_0$, for which $f_X(x) = f(x;\theta_0)$ (or approximately so), they rather assert that different members of $F_{\theta}$ may approximate $f_X$ locally in different parts of its domain. In other words, they seek to estimate a parameter \emph{function} $\theta_0(x)$ for which $f_X(x) = f(x;\theta_0(x))$ (or approximately so), and do this by maximizing a \emph{local likelihood function} in each point $x$:
 \begin{align}
 \widehat\theta(x) 
 &= \arg\max_{\theta \in \Theta} L_n(\theta, x) \nonumber\\ 
@@ -34,18 +36,18 @@ where $K$ is a symmetric density function (the kernel) and $b$ is a tuning param
 \end{align}
 where, again, $K$ is a symmetric density function and $b$ is a bandwidth parameter that controls the smoothness of the estimate. 
 
-\citet{tjos:huft:2013} consider the bivariate case $X = (X_1, X_2)$ and take $F_{\theta}$ to be the family of bivariate normal distribution consisting of densities on the form
+\citet{tjos:huft:2013} consider the bivariate case $X = (X_1, X_2)$ and take $F_{\theta}$ to be the family of bivariate normal distributions consisting of densities on the form
 
 \begin{align}
 f(x;\theta) 
 &= \psi(x_1, x_2;\mu_1, \mu_2, \sigma_1, \sigma_2, \rho)  \nonumber\\ 
 &= \frac{1}{2\pi \sigma_1 \sigma_2\sqrt{1-\rho^2}} \nonumber \\
-& \qquad \times\exp \left\{-\frac{1}{2(1-\rho^2)}\left(\frac{(x_1-\mu_1)^2}{\sigma_1^2}-2\rho\frac{(x_1-\mu_1)(x_2-\mu_2)}{\sigma_1 \sigma_2}+\frac{(x_2-\mu_2)^2}{\sigma_2^2}\right)\right\}.
+& \qquad \times\exp \left\{-\frac{1}{2(1-\rho^2)}\left(\frac{(x_1-\mu_1)^2}{\sigma_1^2}-2\rho\frac{(x_1-\mu_1)(x_2-\mu_2)}{\sigma_1 \sigma_2}+\frac{(x_2-\mu_2)^2}{\sigma_2^2}\right)\right\},
 \label{eq:gaussian}
 \end{align}
-Using a sample $\{X_{1i}, X_{2i}\}$, $i = 1, \ldots, n$, they estimate 
-$$\widehat\theta(x) = (\widehat\mu_1(x), \widehat\mu_2(x), \widehat\sigma_1(x), \widehat\sigma_2(x), \widehat\rho(x))$$
-and take special interest in the estimated correlation function $\widehat\rho(x)$ (i.e. the LGC) because it serves as an attractive local measure of statistical dependence between $X_1$ and $X_2$. They show that the LGC reveals many types of nonlinear statistical dependence not seen by the ordinary (global) Pearson's correlation coefficient. Furthermore, the LGC distinguishes between positive and negative dependence and reduces to Pearson's $\rho$ if $X_1$ and $X_2$ are jointly normal. We refer to \cite{tjos:huft:2013} for a detailed treatment of the theoretical foundations of the LGC as well as several examples, and rather present two simple illustrations at this point in order to demonstrate the concept. 
+where $\theta = (\mu_1,\mu_2,\sigma_1,\sigma_2,\rho)$ is the vector of parameters. Using a sample $\{X_{1i}, X_{2i}\}$, $i = 1, \ldots, n$, they estimate $\theta$ locally in the point $x$ by maximizing the local likelihood function \eqref{eq:loclik}, producing
+$$\widehat\theta(x) = (\widehat\mu_1(x), \widehat\mu_2(x), \widehat\sigma_1(x), \widehat\sigma_2(x), \widehat\rho(x)),$$
+and take special interest in the estimated correlation function $\widehat\rho(x)$ (i.e. the LGC) because it serves as an attractive local measure of statistical dependence between $X_1$ and $X_2$. They show that the LGC reveals many types of nonlinear statistical dependence that are not captured by the ordinary (global) Pearson correlation coefficient. Furthermore, the LGC distinguishes between positive and negative dependence and reduces to the Pearson $\rho$ if $X_1$ and $X_2$ are jointly normal. We refer to \cite{tjos:huft:2013} for a detailed treatment of the theoretical foundations of the LGC as well as several examples, and rather present two simple illustrations at this point in order to demonstrate the concept. 
 
 \begin{figure}[t]
     \centering
@@ -61,48 +63,48 @@ and take special interest in the estimated correlation function $\widehat\rho(x)
     \label{fig:initial-example}
   \end{figure}
   
-In Figure \ref{fig:initial-example} we have plotted the estimated LGC for two bivariate data sets; 1000 simulated observations from a binormal distribution having correlation equal to 0.5, and the daily return on the CAC40 and FTSE100 stock indices on 1000 consecutive trading days starting on May 5th 2014. In the first panel, we see that the estimated local correlation coincides with the global Pearson's $\rho$ except for the estimation error. In the second panel we see clearly that the local correlation, and thus, as we will see, the dependence, is stronger in the lower left and upper right tails than in central parts of the distribution. This phenomenon is of course well known in the financial literature, but can now also be easily measured and quantitatively interpreted by means of the LGC. One may obtain these particular estimates from the older \CRANpkg{localgauss}-package (as well as the \CRANpkg{lg}-package of course), but the plotting routine that was used to produce these figures is included in the \CRANpkg{lg}-package and will be described in more detail in Section \ref{chap:graphics}.
+In Figure \ref{fig:initial-example} we have plotted the estimated LGC for two bivariate data sets; 1000 simulated observations from a binormal distribution having correlation equal to 0.5, and the daily return on the CAC40 and FTSE100 stock indices on 1000 consecutive trading days starting on May 5th 2014. In the first panel, we see that the estimated local correlation coincides with the global correlation, except for the estimation error. In the second panel we see clearly that the local correlation, and thus the dependence, is stronger in the lower left and upper right regions of the distribution than in central parts. The phenomenon of local dependence is well known in the financial literature, and using the LGC it can be measured, interpreted, and visualized in a natural way. The interpretation of this particular figure is that extreme observations on the two stock indices are more strongly dependent than the less extreme observations. 
 
-Taking the LGC as a measure of dependence opens up for a number of possibilities to construct statistical tests. \citet{bere:tjos:2014} derive from the representation (\ref{eq:gaussian}) that $\rho(x) \equiv 0$ implies that $X_1$ and $X_2$ are independent (the converse statement holds if $\mu_i(x_1, x_2) = \mu_i(x_i)$ and $\sigma_i(x_1, x_2) = \sigma_i(x_i)$ for $i=1,2$, and in general if the observations have been suitably transformed according to a procedure presented later in this section). It follows then that departures from $\widehat\rho(x) \equiv 0$ may be taken as evidence against $X_1$ and $X_2$ being statistically independent. \citet{bere:tjos:2014} formalize this notion by testing whether $\rho(x) \equiv 0$ for all $x\in S \subset \mathbb{R}^2$ using the test statistic
+One may obtain these particular estimates from the older \CRANpkg{localgauss}-package (as well as the \CRANpkg{lg}-package of course), but the plotting routine that was used to produce these figures is included in the \CRANpkg{lg}-package and will be described in more detail in Section \ref{chap:graphics}.
+
+Taking the LGC as a measure of dependence opens up for a number of possibilities to construct statistical tests. \citet{bere:tjos:2014} show that $\rho(x) \equiv 0$ implies that $X_1$ and $X_2$ are independent. The converse statement holds if $\mu_i(x_1, x_2) = \mu_i(x_i)$ and $\sigma_i(x_1, x_2) = \sigma_i(x_i)$ for $i=1,2$, and in general if the observations have been suitably transformed according to a procedure presented later in this section. It follows then that departures from $\widehat\rho(x) \equiv 0$ may be taken as evidence against the hypothesis that $X_1$ and $X_2$ are statistically independent. \citet{bere:tjos:2014} formalize this notion by testing whether $\rho(x) \equiv 0$ for all $x\in S \subset \mathbb{R}^2$ using the test statistic
 
 \begin{equation}
 T_{n,b} = \int_S h\left(\widehat \rho(x) \right) \,\textrm{d}F_n(x)
 \label{eq:test-statistic1}
 \end{equation}
-for some function $h$, for example $h(x) = x^2$ or $h(x) = |x|$. Critical values may be obtained by permutations of the data under the null hypothesis. We demonstrate the implementation of this test using the \CRANpkg{lg}-package in Section \ref{chap:indtests}.
+for some non-negative function $h$, for example $h(x) = x^2$ or $h(x) = |x|$. Critical values may be obtained by permutations of the data under the null hypothesis, and we demonstrate the implementation of this test using the \CRANpkg{lg}-package in Section \ref{chap:indtests}.
 
-Consider next the stationary time series $\{X_t\}$. The autocorrelation $\rho_k = \rho(X_t, X_{t-k})$ is a fundamental descriptive and analytical concept, but is, again, only capable to completely capture \emph{linear} serial dependence relationships. \citet{laca:tjos:2017} seek to remedy this by rather calculating the LGC to measure the \emph{local} dependence between $X_t$ and $X_{t-k}$, which in turn leads to a test for serial independence in the natural way. In fact, this work is mainly a theoretical exercise in order to accommodate dependent data. Testing for serial independence between $X_t$ and $X_{t-k}$ using observations $\{X_t, X_{t-k}\}_{t = 1}^T$ leads to the same test statistic and bootstrap procedure as the test for independence between $X_1$ and $X_2$ that we described above, and we present its implementation in Section \ref{chap:indtests} as well.
+Consider next the stationary time series $\{X_t\}$. The autocorrelation function (ACF) $\rho_k = \rho(X_t, X_{t-k})$ is a well known concept for describing the serial dependence in the time seris, but the ACF is, again, only capable to completely capture \emph{linear} serial dependence. \citet{laca:tjos:2017} seek to remedy this by rather calculating the the local correlation between $X_t$ and $X_{t-k}$. This leads to a test for serial independence in the natural way. In fact, this work is mainly a theoretical exercise in order to accommodate time series dependence. Testing for independence between $X_t$ and $X_{t-k}$ using observations $\{X_t, X_{t-k}\}_{t = k+1}^T$ leads to the same test statistic \eqref{eq:test-statistic1} and bootstrap procedure as the test for independence between $X_1$ and $X_2$ that we described above. 
 
-\citet{laca:tjos:2018} extend this problem to test for serial cross dependence between two time series $\{X_t, Y_t\}$ by measuring the LGC between $X_t$ and $Y_{t-k}$. Indeed, departures from $\widehat\rho(x,y) \equiv 0$ is again taken as evidence against independence, and the test statistic (\ref{eq:test-statistic1}) provides an aggregate measure of just that in the specified region $S$. This time, however, we can not just obtain permutations of the data in order to produce replicates of the test statistic under the null hypothesis. \citet{laca:tjos:2018} accomplish this by rather suggesting two block bootstrap procedures using fixed and random block sizes. This test is implemented in the \CRANpkg{lg}-package, as we demonstrate in Section \ref{chap:indtests}.
+\citet{laca:tjos:2018} extend this problem to test for serial cross-dependence between two time series $\{X_t, Y_t\}$ by measuring the LGC between $X_t$ and $Y_{t-k}$. Departures from $\widehat\rho(x,y) \equiv 0$ is again taken as evidence against independence, and the test statistic (\ref{eq:test-statistic1}) provides an aggregate measure of this discrepancy in the specified region $S$. In this case, however, we can not obtain replicates of the test statistic under the null hypothesis by simple permutations of the data. \citet{laca:tjos:2018} suggest rather two block bootstrap procedures to this end, using fixed and random block sizes respectively. The tests for serial dependence, and serial cross-dependence are both implemented in the \CRANpkg{lg}-package, as we demonstrate in Section \ref{chap:indtests}.
 
-\citet{stov:tjos:huft:2014} measure and test for financial contagion using the LGC. They define contagion by "a significant increase in cross-market linkages after a shock to one country" \citep{forb:rigo:2002} and employ the LGC to quantify such linkage. Contrary to the independence tests above, \citet{stov:tjos:huft:2014} estimate the LGC on a grid $\{x_1, x_2\}_k$, $k=1,\ldots,K$ along the diagonal $D=\{(x_1,x_2): x_1 = x_2\}$ \emph{before} and \emph{after} some critical event in the financial markets, i.e. in the crisis (C) and non-crisis (NC) periods. They compare the two estimates using the test statistic 
+We find another application of the local Gaussian approximation in the work by \citet{stov:tjos:huft:2014}, who measure and test for financial contagion. They define contagion by "a significant increase in cross-market linkages after a shock to one country" \citep{forb:rigo:2002} and employ the LGC to quantify this potential linkage. The authors estimate the LGC on a grid $\{x_1, x_2\}_k$, $k=1,\ldots,K$ along the diagonal $D=\{(x_1,x_2): x_1 = x_2\}$ \emph{before} and \emph{after} some critical event in the financial markets, denoted as the crisis (C) and the non-crisis (NC) periods respectively. They compare the two estimates using the following test statistic; 
 
 $$T_{n,b}^D = \sum_{k=1}^K \left\{\widehat\rho_C(x_k, x_k) - \widehat\rho_{NC}(x_k, x_k) \right\}w(x_k,x_k),$$
 
-where $w(\cdot, \cdot)$ is a weight function that serve the same purpose as the integration area $S$ in (\ref{eq:test-statistic1}). In this case, a standard bootstrap will suffice in order to produce approximate replicates of $T_{n,b}^D$ under the null hypothesis of no financial contagion, and we demonstrate the implementation of this test using the \CRANpkg{lg}-package in Section \ref{chap:cont}.
+where $w(\cdot, \cdot)$ is a weight function that serve the same purpose as the integration area $S$ in (\ref{eq:test-statistic1}). In this case, \citet{stov:tjos:huft:2014} show that a standard bootstrap will suffice in order to produce approximate replicates of $T_{n,b}^D$ under the null hypothesis of no financial contagion, and we demonstrate the implementation of this test using the \CRANpkg{lg}-package in Section \ref{chap:cont}.
 
-Although \citet{hjor:jone:1996} provide a general framework for locally parametric density estimation using using any parametric family, having any number of variables, it is evident that the method may struggle in multivariate applications much in the same way as the kernel density estimator does. This is a consequence of the curse of dimensionality, the effect of which is sought remedied by an algorithm provided by \citet{otne:tjos:2017}. The idea is to locally fit the $p$-variate normal distribution $\psi(\mu, \Sigma)$, where $\mu$ is the vector of $p$ expectations, and $\Sigma$ is the $p\times p$ covariance matrix (to which the correlation matrix $R$ corresponds), but under the following structural simplifications:
+Although the original work by \citet{hjor:jone:1996} provide a general framework for local likelihood density estimation, using any $p$-variate parametric family as the local family, it is evident that the method may struggle in multivariate applications much in the same way as the kernel density estimator does. This is a consequence of the curse of dimensionality, the effect of which is sought remedied by an algorithm provided by \citet{otne:tjos:2017}. The idea is to fit the $p$-variate normal distribution $\psi(\mu, \Sigma)$ locally, where $\mu$ is the vector of $p$ expectations, and $\Sigma$ is the $p\times p$ covariance matrix (to which the correlation matrix $R$ corresponds), but under the following structural simplifications:
 
 \begin{align}
 \mu_i(x) &= \mu_i(x_1, \ldots, x_p) \stackrel{\textrm{def}}{=} \mu_(x_i) \label{eq:simp-mu}\\
 \sigma_i(x) &= \sigma_i(x_1, \ldots, x_p)  \stackrel{\textrm{def}}{=} \sigma_i(x_i) \label{eq:simp-sig} \\
 \rho_{ij}(x) &= \rho_{ij}(x_1, \ldots, x_p) \stackrel{\textrm{def}}{=} \rho_{ij}(x_i, x_j). \label{eq:simp-rho}
 \end{align}
-These local parameters are estimated by univariate marginal locally normal fits (eqs. \ref{eq:simp-mu} and \ref{eq:simp-sig}), and pairwise bivariate locally normal fits (eq. \ref{eq:simp-rho}), and in the latter case the estimates $\widehat\mu_i(x_i)$, $\widehat\mu_j(x_j)$, $\widehat\sigma_i(x_i)$ and $\widehat\sigma_j(x_j)$ are kept fixed. 
-
-Denote by $F_i(x_i)$, $i = 1,\ldots, p$ the marginal distribution functions of the stochastic vector $X$, and by $\widehat F_i(x_i) = n^{-1}\sum_{i=1}^n 1(X_i \leq x_i)$ their empirical counterparts. \citet{otne:tjos:2017} argue that estimating the density $f_Z(z)$ of the vector $Z = \{\Phi^{-1}(F_i(X_i))\}_{i=1,\ldots,p}$, in practice approximated by 
+\citet{otne:tjos:2017} estimate the local parameters above by first obtaining univariate marginal locally Gaussian fits (eqs. \ref{eq:simp-mu} and \ref{eq:simp-sig}), and then pairwise bivariate locally Gaussian fits (eq. \ref{eq:simp-rho}). In the second step the estimates $\widehat\mu_i(x_i)$, $\widehat\mu_j(x_j)$, $\widehat\sigma_i(x_i)$ and $\widehat\sigma_j(x_j)$ are kept fixed in the estimation of the pairwise local correlation. They argue further that the following transformation technique will produce better density estimates in many situations. Denote by $F_i(x_i)$, $i = 1,\ldots, p$ the marginal distribution functions of the stochastic vector $X$, and by $\widehat F_i(x_i) = n^{-1}\sum_{i=1}^n 1(X_i \leq x_i)$ their empirical counterparts. They then estimate the density $f_Z(z)$ of the vector $Z = \{\Phi^{-1}(F_i(X_i))\}_{i=1,\ldots,p}$, in practice approximated by 
 
 \begin{equation}
 \widehat Z = \{\Phi^{-1}(\widehat F_i(X_i))\}_{i=1,\ldots,p}, 
 \label{eq:trans}
 \end{equation}
-where $\Psi(\cdot)$ is the univariate standard normal cdf, will lead to better density estimates in many situations. In that case, one may simplify even further and fix
+and where $\Psi(\cdot)$ is the univariate standard normal cdf. In that case, they simplify the estimation problem even further and fix
 
 \begin{equation}
 \mu_i(z_i) \stackrel{\textrm{def}}{=} 0 \,\, \textrm{ and } \sigma_i(z_i) \stackrel{\textrm{def}}{=} 1, \,\, i = 1,\ldots,p,
 \label{eq:simp}
 \end{equation}
-so that the only parameter functions left to estimate are the pairwise local Gaussian correlations $R(z) = \{\rho_{ij}(z_i, z_j)\}_{i<j}$, where we use the notation $Z$, $z_i$ and $z_j$ to signify that the estimation is performed on the (approximate) standard normal scale (or $Z$-scale). One then estimates the joint density $f_Z(z)$ of $Z$ as
+so that the only parameter functions left to estimate are the pairwise local Gaussian correlations $R(z) = \{\rho_{ij}(z_i, z_j)\}_{i<j}$. We use the notation $Z$, $z_i$ and $z_j$ to signify that the estimation is performed on the (approximate) standard normal scale, or $z$-scale for short. We can then estimate the joint density $f_Z(z)$ of $Z$ as
 \begin{equation}
 \widehat f_Z(z) = \psi(z; \mu = 0, \sigma = 1, R = \widehat R(z)),
 \label{eq:transformed-density}
@@ -112,9 +114,9 @@ and then substitute $f_Z$ for $\widehat f_Z$ in the following relation obtained 
 f(x) = f_{Z}\big(\Phi^{-1}(F_1(x_1)), \ldots, \Phi^{-1}(F_p(x_p))\big) \times \prod_{i=1}^p \frac{f_i(x_i)}{\phi\big(\Phi^{-1}(F_i(x_i))\big)},
 \label{eq:backtrans}
 \end{equation}
-where $\phi(\cdot)$ is the standard normal pdf. This estimator is implemented the \CRANpkg{lg}-package as described in Section \ref{chap:density}.
+where $\phi(\cdot)$ is the standard normal pdf. This estimator is implemented the \CRANpkg{lg}-package as demonstrated in Section \ref{chap:density}.
 
-One particular feature enjoyed by the jointly normally distributed vector $X$ is that, for any partitioning $\left(X^{(1)}, X^{(2)}\right)$, the conditional distribution of $X^{(1)}|X^{(2)} = x^{(2)}$ is also normal. In fact, if $X \sim \mathcal{N}(\mu,\Sigma)$, and $\mu$ and $\Sigma$ is partitioned according to $\left(X^{(1)}, X^{(2)}\right)$ as
+One particular feature enjoyed by the jointly normally distributed vector $X$ is that, for any partitioning $X = \left(X^{(1)}, X^{(2)}\right)$, the conditional distribution of $X^{(1)}|X^{(2)} = x^{(2)}$ is also normal. In fact, if $X \sim \mathcal{N}(\mu,\Sigma)$, and $\mu$ and $\Sigma$ is partitioned according to $\left(X^{(1)}, X^{(2)}\right)$ as
 $$\mu = \begin{pmatrix} \mu_1 \\\mu_2 \end{pmatrix} \,\, \textrm{ and } \,\, \Sigma = \begin{pmatrix} \Sigma_{11} & \Sigma_{12} \\ \Sigma_{21} & \Sigma_{22} \end{pmatrix},$$
 then $X^{(1)}|X^{(2)} = x^{(2)} \sim \mathcal{N}(\mu^*, \Sigma^*)$, where
 
@@ -122,31 +124,31 @@ then $X^{(1)}|X^{(2)} = x^{(2)} \sim \mathcal{N}(\mu^*, \Sigma^*)$, where
 \mu^* &= \mu_1 + \Sigma_{12}\Sigma_{22}^{-1}\left(x^{(2)} - \mu_2\right) \label{eq:cond-mu} \\
 \Sigma^* &= \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}, \label{eq:cond-sig}
 \end{align}
-see e.g. \citet[chapter 4]{john:wich:2007}. \citet{otne:tjos:2018} demonstrate that this property may be translated into a corresponding local argument without modification. If the joint density $f_X(\cdot)$ is locally Gaussian, i.e. if 
+see e.g. \citet[chapter 4]{john:wich:2007}. \citet{otne:tjos:2018} demonstrate that this property may be translated into a corresponding local argument without modification. That is, if the joint density $f_X(\cdot)$ can be written on a locally Gaussian form 
 
 $$f_X(x) = \psi(x, \mu(x), \Sigma(x)),$$
 
-then $X^{(1)}|X^{(2)} = x^{(2)}$ is also locally Gaussian with local parameters given by equations (\ref{eq:cond-mu}) and (\ref{eq:cond-sig}), except that all quantities are $x$-dependent. If we use the transformation technique described above together with simplification (\ref{eq:simp}), the local versions of equations (\ref{eq:cond-mu}) and (\ref{eq:cond-sig}) simplify to  
+then the conditional density of $X^{(1)}|X^{(2)} = x^{(2)}$ can also be written on the same locally Gaussian form with local parameters given by equations (\ref{eq:cond-mu}) and (\ref{eq:cond-sig}), except that all quantities are $x$-dependent. If we use the transformation technique described above together with simplification (\ref{eq:simp}), the local versions of equations (\ref{eq:cond-mu}) and (\ref{eq:cond-sig}) simplify to
 
 \begin{align}
 \mu^*(z) &= R_{12}(z)R_{22}(z)^{-1}z^{(2)},  \label{eq:cond-mu-trans}\\
 \Sigma^*(z) &= R_{11}(z) - R_{12}(z)R_{22}(z)^{-1}R_{21}(z), \label{eq:cond-sig-trans}
 \end{align}
-where we, again, switch to $z$-notation in order to make it clear that these quantities are estimated on the standard normal $z$-scale. An estimator $\widehat f_{X^{(1)}|X^{(2)}}(\cdot|\cdot)$ of the conditional density $f_{X^{(1)}|X^{(2)}}(\cdot|\cdot)$ follows immediately from an expression corresponding to (\ref{eq:backtrans}), and the \CRANpkg{lg}-package provides functions for implementing this estimator in R as described in Section \ref{chap:density}.
+where we, again, switch to $z$-notation in order to make it clear that these quantities are estimated on the standard normal $z$-scale. An estimator $\widehat f_{X^{(1)}|X^{(2)}}(\cdot|\cdot)$ of the conditional density $f_{X^{(1)}|X^{(2)}}(\cdot|\cdot)$ follows immediately from an expression corresponding to (\ref{eq:backtrans}), and the \CRANpkg{lg}-package provides functions for implementing this estimator in R, and we describe the implementation of this functionality in Section \ref{chap:density}.
 
-Finally, we refer to \citet{otne:tjos:2019}, who take the local version of the conditional covariance matrix (\ref{eq:cond-sig}) (or (\ref{eq:cond-sig-trans}) in the transformed case) as a measure for conditional dependence, and thus as an instrument to test for conditional independence. Specifically, consider the stochastic vector $X = \left(X^{(1)}, X^{(2)}, X^{(3)}\right)$, where $X^{(1)}$ and $X^{(2)}$ are scalars and $X^{(3)}$ may be a vector. $X^{(1)}$ is conditionally independent from $X^{(2)}$ given $X^{(3)}$, written $X^{(1)} \perp X^{(2)} \,|\,X^{(3)}$ if the stochastic variables $X^{(1)}\,|\,X^{(3)}$ and $X^{(2)}\,|\,X^{(3)}$ are independent, or, equivalently, if the joint conditional density of $X^{(1)}$ and $X^{(2)}$ given $X^{(3)}$ can be written as the product
+Finally, we refer to \citet{otne:tjos:2019}, who take the local version of the conditional covariance matrix (\ref{eq:cond-sig}) (or (\ref{eq:cond-sig-trans}) in the transformed case) as a measure for conditional dependence, and thus as an instrument to test for conditional independence. Consider the stochastic vector $X = \left(X^{(1)}, X^{(2)}, X^{(3)}\right)$, where $X^{(1)}$ and $X^{(2)}$ are scalars and $X^{(3)}$ may be a vector. $X^{(1)}$ is conditionally independent from $X^{(2)}$ given $X^{(3)}$, written $X^{(1)} \perp X^{(2)} \,|\,X^{(3)}$, if the stochastic variables $X^{(1)}\,|\,X^{(3)}$ and $X^{(2)}\,|\,X^{(3)}$ are independent, or, equivalently, if the joint conditional density of $X^{(1)}$ and $X^{(2)}$ given $X^{(3)}$ can be written as the product
 
 \begin{equation}
 f_{X^{(1)},X^{(2)}|X^{(3)}}\left(x^{(1)}, x^{(2)}|x^{(3)}\right) = f_{X^{(1)}|X^{(3)}}\left(x^{(1)}|x^{(3)}\right) \times f_{X^{(2)}|X^{(3)}}\left(x^{(2)}|x^{(3)}\right).
 \label{eq:cond-ind}
 \end{equation}
-In this case, denote by $\alpha(z)$ the off-diagonal element in the $2\times2$ local correlation matrix $R^*(z)$ (which derives directly from $\Sigma^*(z)$ as given in (\ref{eq:cond-sig-trans})). If $X$ has a local Gaussian distribution, the conditional independence (\ref{eq:cond-ind}) is equivalent to $\alpha(z) \equiv 0$, departures from which we take as evidence against conditional dependence between $X^{(1)}$ and $X^{(2)}$ given $X^{(3)}$, and this discrepancy is quantified using the test functional 
+In this case, denote by $\alpha(z)$ the off-diagonal element in the $2\times2$ local correlation matrix $R^*(z)$ (which derives directly from $\Sigma^*(z)$ as given in (\ref{eq:cond-sig-trans})). If $X$ has a local Gaussian distribution, the conditional independence (\ref{eq:cond-ind}) is equivalent to $\alpha(z) \equiv 0$, and \citet{otne:tjos:2019} take departures from this relation as evidence against the hypothesis of conditional independence between $X^{(1)}$ and $X^{(2)}$ given $X^{(3)}$. The natural way to quantify this is the test functional
 
 \begin{equation}
 T^{CI}_{n, b} = \int h(\widehat\alpha(z)) \, \textrm{d}F_n(z).
 \label{eq:ci-test-statistic}
 \end{equation}
-\citet{otne:tjos:2019} describe a bootstrap procedure for generating replicates of $T_{n,b}^{CI}$ under the null hypothesis. In Section \ref{chap:partial} we demonstrate how the \CRANpkg{lg}-package  may be used to extract estimates of the local partial correlation and perform tests for conditional independence according to this scheme.
+\citet{otne:tjos:2019} describe a bootstrap procedure for generating replicates of $T_{n,b}^{CI}$ under the null hypothesis. In Section \ref{chap:partial} we demonstrate how the \CRANpkg{lg}-package may be used to extract estimates of the local partial correlation and perform tests for conditional independence according to this scheme.
 
 \section{The \texttt{lg}-object} 
 \label{chap:lgobject}

@@ -101,7 +101,7 @@ embed_fonts("faithful.pdf")
 
 pdf(file = "faithful-transformed.pdf", height = 4, width = 5, family = "CM Roman")
 lg_object$transformed_data %>% 
-    as_tibble %>% 
+    as.data.frame %>% 
     ggplot +
     geom_point(aes(x = V1, y = V2)) +
     xlab("eruptions") +
@@ -231,7 +231,7 @@ set.seed(1)
 n <- 500
 x1 <- rnorm(n)
 x2 <- x1^2 + rnorm(n)
-test_x <- data_frame(x1 = x1, x2 = x2)
+test_x <- tibble(x1 = x1, x2 = x2)
 
 lg_object <- lg_main(test_x, 
                      est_method = "5par",
@@ -246,7 +246,7 @@ returns2 <- stock_data %>% select(SP500) %>%
 
 # Read the daily data
 returns3 <- read.csv2("G5_daily_r.csv") %>%     
-    as_data_frame  %>% 
+    as_tibble  %>% 
     dplyr::select(Date, SP500, FTSE100) %>%
     drop_na %>% 
     mutate(Date = dmy(Date)) %>%  
@@ -260,11 +260,9 @@ crisis_start <- ymd("1987-10-18")
 crisis_end   <- ymd("1988-04-29")
 
 garch_filtrate <- function(y) {
-    sink("/dev/null")
-    fit <- garchFit(~garch(1,1), 
+    invisible(capture.output(fit <- garchFit(~garch(1,1), 
                     data = y, 
-                    cond.dist = "std") 
-    sink()
+                    cond.dist = "std")))
     fit@residuals/fit@sigma.t
 }
 
@@ -289,7 +287,7 @@ x_nc <- data.frame(US = crash_data %>%
                        dplyr::filter(crisis == "BEFORE") %>% 
                        dplyr::select(return_filtered) %>% 
                        pull) %>% 
-    as_data_frame
+    as_tibble
 
 x_c <- data.frame(US = crash_data %>% 
                       dplyr::filter(exchange == "SP500") %>%
@@ -301,7 +299,7 @@ x_c <- data.frame(US = crash_data %>%
                       dplyr::filter(crisis == "AFTER") %>% 
                       dplyr::select(return_filtered) %>% 
                       pull) %>% 
-    as_data_frame
+    as_tibble
 
 # Create the two lg-objects
 lg_object_nc <- lg_main(x_nc, 

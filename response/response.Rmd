@@ -1,0 +1,50 @@
+---
+title: ""
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\begin{center}
+\Large \textbf{Response to reviewer comments to the manuscript \emph{2019-146: lg: An R package for Local Gaussian Approximations} submitted to \emph{The R Journal}}
+\end{center}
+
+I am very grateful to the Editor of *The R Journal* for considering this paper for publication, and to the reviewer for his/her careful reading and several useful comments. I have revised the paper according to the comments, as detailed in a point-by-point fashion below.
+
+> *Summary*
+>
+> *The aim of this paper to introduce and to illustrate the use of the lg package for R which implements the computation and visualization of the concept of ‘local Gaussian correlation’. The local Gaussian correlation (LGC) is a measure of linear and non-linear dependence, proposed recently by Tjøstheim and Hufthammer (2013). Specifically, the paper presents how the GLC can be estimated from empirical or simulated data and how the ‘dependence structure’ described by the GLC can be visualized. Further, the application of statistical tests for the significance of correlation (i.e. GLC) is demonstrated.*
+
+**My response:** This is a good summary that captures the essence of the paper.
+
+> *Overall evaluation*
+>
+> *Measuring and visualizing the structure(s) of temporal dependencies and dependencies among variables – or aspects thereof – is highly relevant in all areas and sub-disciplines of statistics (e.g. biometry, econometrics etc.). Therefore, providing a software package that implements the local Gaussian correlation, a measure of linear and non-linear dependencies recently proposed by Tjøstheim and Hufthammer (2013) is very useful since it allows a broader audience to apply this concept in empirical research. In this regard presenting such a software package in a scientific journal seems to further support applied statisticians in using this new concept of dependence. However, the author fails to convince me that the manuscript constitutes a serious scientific piece at this stage which deserves publication in a well respected scientific journal. A number of reasons have lead to this conclusion.*
+
+**My response:** The reviewer is exactly right. There is a lot of interest in the measurement, visualization and modeling of statistical dependence in many empirical disciplines. The purpose of this paper is to make recent developments within local Gaussian approximations that have appeared in the statistical literature in recent years available to a broader audience of practitioners. I appreciate the comments by the reviewer below, and I hope that the revised paper satisfies the high scientific standards of *The R Journal*.
+
+> *To exemplify this, the section on ‘Statistical background’ reads as if compiled from different sources; In particular, the paragraphs are not well connected in my view.*
+
+**My response:** The purpose of this section is to give the reader a brief overview of the statistical methods that have been implemented in the **lg**-package, without going too much in to the technical details at this stage. I have revised this section carefully, with particular emphasis on improving the transitions between the paragraphs.
+
+>  *Further the explanation of the basic idea of the GLC measure in the section ‘Statistical background’ could be improved, thereby making the concept accessible for a broader audience and making this paper more ‘self-contained’.*
+
+**My response:** Thank you for this input. The reviewer is correct to point out that the section on "Statistical background" is rather short. The composition of this section is the result of a careful trade-off. On the one hand I fully agree that a more comprehensive section would be desireable, because that would allow the reader to appreciate the technical nuances within the topic of the LGC in greater detail. On the other hand, it is the purpose of this paper to demonstrate the practical implementation of a rather large and diverse set of statistical methods. It is my conclusion that this section should not be much longer than it is in its current form (approx. 4 pages), which naturally puts a limit on the level of detail. I have instead opted to provide a rather acessible birds-eye view of the relevant literature, which I believe is useful to the readership of *The R Journal*. This section has been heavily revised, however, see my previous comment.
+
+> *Also, the whole manuscript is not well-structured: The section with the illustration of the lg package is called ‘The lg-object’ and more importantly is confusing since, for instance, all three different estimation methods implemented are outlined, although not necessary for the (empirical) example chosen by the author;*
+
+**My reponse:**
+
+> *A section with a summary or concluding remarks is fully missing!*
+
+**My response:**
+
+> *Furthermore, the code chunks presented in the paper could be augmented by comments explaining what the different lines of code do; For example, in the section ‘Graphics’ it is not clear what expand.grid does.*
+
+**My response:**
+
+> *In all, this version of the manuscript, unfortunately, appears to be incomplete and as if submitted under time pressure.*
+
+**My response:**

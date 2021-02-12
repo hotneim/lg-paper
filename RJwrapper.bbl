@@ -1,0 +1,166 @@
+\begin{thebibliography}{25}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bache and Wickham(2014)]{bach:wick:2014}
+S.~M. Bache and H.~Wickham.
+\newblock \emph{\texttt{magrittr}: A Forward-Pipe Operator for {R}}, 2014.
+\newblock URL \url{https://CRAN.R-project.org/package=magrittr}.
+\newblock R package version 1.5.
+
+\bibitem[Berentsen and Tj{\o}stheim(2014)]{bere:tjos:2014}
+G.~D. Berentsen and D.~Tj{\o}stheim.
+\newblock Recognizing and visualizing departures from independence in bivariate
+  data using local {G}aussian correlation.
+\newblock \emph{Statistics and Computing}, 24\penalty0 (5):\penalty0 785--801,
+  2014.
+
+\bibitem[Berentsen et~al.(2014)Berentsen, Kleppe, and
+  Tj{\o}stheim]{bere:klep:tjos:2014}
+G.~D. Berentsen, T.~Kleppe, and D.~Tj{\o}stheim.
+\newblock Introducing \texttt{localgauss}, an {R}-package for estimating and
+  visualizing local {G}aussian correlation.
+\newblock \emph{Journal of Statistical Software}, 56\penalty0 (12):\penalty0
+  1--18, 2014.
+
+\bibitem[Forbes and Rigobon(2002)]{forb:rigo:2002}
+K.~J. Forbes and R.~Rigobon.
+\newblock No contagion, only interdependence: measuring stock market
+  comovements.
+\newblock \emph{The Journal of Finance}, 57\penalty0 (5):\penalty0 2223--2261,
+  2002.
+
+\bibitem[Genz et~al.(2018)Genz, Bretz, Miwa, Mi, Leisch, Scheipl, and
+  Hothorn]{gentz:etal:2018}
+A.~Genz, F.~Bretz, T.~Miwa, X.~Mi, F.~Leisch, F.~Scheipl, and T.~Hothorn.
+\newblock \emph{\texttt{mvtnorm}: Multivariate Normal and t Distributions},
+  2018.
+\newblock URL \url{https://CRAN.R-project.org/package=mvtnorm}.
+\newblock R package version 1.0-8.
+
+\bibitem[Granger(1980)]{gran:1980}
+C.~W. Granger.
+\newblock Testing for causality: a personal viewpoint.
+\newblock \emph{Journal of Economic Dynamics and control}, 2:\penalty0
+  329--352, 1980.
+
+\bibitem[Hayfield and Racine(2008)]{hayf:raci:2008}
+T.~Hayfield and J.~S. Racine.
+\newblock Nonparametric econometrics: The \texttt{np} package.
+\newblock \emph{Journal of Statistical Software}, 27\penalty0 (5), 2008.
+\newblock URL \url{http://www.jstatsoft.org/v27/i05/}.
+
+\bibitem[Hjort and Jones(1996)]{hjor:jone:1996}
+N.~Hjort and M.~Jones.
+\newblock Locally parametric nonparametric density estimation.
+\newblock \emph{Annals of Statistics}, 24\penalty0 (4):\penalty0 1619--1647,
+  1996.
+
+\bibitem[Johnson and Wichern(2007)]{john:wich:2007}
+R.~A. Johnson and D.~W. Wichern.
+\newblock \emph{Applied Multivariate Statistical Analysis, Sixth Edition}.
+\newblock Pearson Education Iternational, 2007.
+
+\bibitem[Jordanger(2018)]{jord:2018}
+L.~A. Jordanger.
+\newblock \emph{\texttt{localgaussSpec}: An R-package for local {G}aussian
+  spectral analysis}, 2018.
+\newblock URL \url{https://github.com/LAJordanger/localgaussSpec}.
+\newblock R package.
+
+\bibitem[Jordanger and Tj{\o}stheim(2017)]{jord:tjos:2017}
+L.~A. Jordanger and D.~Tj{\o}stheim.
+\newblock Nonlinear spectral analysis via the local {G}aussian correlation.
+\newblock \emph{arXiv preprint: 1708.02166}, 2017.
+
+\bibitem[Kunsch(1989)]{kuns:1989}
+H.~R. Kunsch.
+\newblock The jackknife and the bootstrap for general stationary observations.
+\newblock \emph{The Annals of Statistics}, 17\penalty0 (3):\penalty0
+  1217--1241, 1989.
+
+\bibitem[Lacal and Tj{\o}stheim(2017)]{laca:tjos:2017}
+V.~Lacal and D.~Tj{\o}stheim.
+\newblock Local {G}aussian autocorrelation and tests of serial dependence.
+\newblock \emph{Journal of Time Series Analysis}, 38\penalty0 (1):\penalty0
+  51--71, 2017.
+
+\bibitem[Lacal and Tj{\o}stheim(2018)]{laca:tjos:2018}
+V.~Lacal and D.~Tj{\o}stheim.
+\newblock Estimating and testing nonlinear local dependence between two time
+  series.
+\newblock \emph{Journal of Business \& Economic Statistics}, pages 1--13, 2018.
+
+\bibitem[Otneim(2016)]{otneim2016multivariate}
+H.~Otneim.
+\newblock \emph{Multivariate and conditional density estimation using local
+  {G}aussian approximations}.
+\newblock PhD thesis, University of Bergen, 2016.
+
+\bibitem[Otneim(2019)]{otne:2019}
+H.~Otneim.
+\newblock \emph{\texttt{lg}: Locally Gaussian Distributions: Estimation and
+  Methods}, 2019.
+\newblock URL \url{https://CRAN.R-project.org/package=lg}.
+\newblock R package version 0.4.0.
+
+\bibitem[Otneim and Tj{\o}stheim(2017)]{otne:tjos:2017}
+H.~Otneim and D.~Tj{\o}stheim.
+\newblock The locally {G}aussian density estimator for multivariate data.
+\newblock \emph{Statistics and Computing}, 27\penalty0 (6):\penalty0
+  1595--1616, 2017.
+
+\bibitem[Otneim and Tj{\o}stheim(2018)]{otne:tjos:2018}
+H.~Otneim and D.~Tj{\o}stheim.
+\newblock Conditional density estimation using the local {G}aussian
+  correlation.
+\newblock \emph{Statistics and Computing}, 28\penalty0 (2):\penalty0 303--321,
+  2018.
+
+\bibitem[Otneim and Tjøstheim(2019)]{otne:tjos:2019}
+H.~Otneim and D.~Tjøstheim.
+\newblock The locally {G}aussian partial correlation.
+\newblock \emph{arXiv 1909.09681 stat.ME}, 2019.
+
+\bibitem[Politis and Romano(1994)]{poli:roma:1994}
+D.~N. Politis and J.~P. Romano.
+\newblock The stationary bootstrap.
+\newblock \emph{Journal of the American Statistical Association}, 89\penalty0
+  (428):\penalty0 1303--1313, 1994.
+
+\bibitem[Silverman(1986)]{silv:1986}
+B.~W. Silverman.
+\newblock \emph{Density Estimation for Statistics and Data Analysis}.
+\newblock Chapman and Hall, London, 1986.
+
+\bibitem[St{\o}ve et~al.(2014)St{\o}ve, Tj{\o}stheim, and
+  Hufthammer]{stov:tjos:huft:2014}
+B.~St{\o}ve, D.~Tj{\o}stheim, and K.~Hufthammer.
+\newblock Using local {G}aussian correlation in a nonlinear re-examination of
+  financial contagion.
+\newblock \emph{Journal of Empirical Finance}, 25:\penalty0 785--801, 2014.
+
+\bibitem[Tj{\o}stheim and Hufthammer(2013)]{tjos:huft:2013}
+D.~Tj{\o}stheim and K.~O. Hufthammer.
+\newblock Local {G}aussian correlation: A new measure of dependence.
+\newblock \emph{Journal of Econometrics}, 172\penalty0 (1):\penalty0 33--48,
+  2013.
+
+\bibitem[Wickham(2016)]{wick:2016}
+H.~Wickham.
+\newblock \emph{\texttt{ggplot2}: Elegant Graphics for Data Analysis}.
+\newblock Springer-Verlag New York, 2016.
+\newblock ISBN 978-3-319-24277-4.
+\newblock URL \url{http://ggplot2.org}.
+
+\bibitem[Wickham et~al.(2018)Wickham, François, Henry, and
+  Müller]{wick:fran:mull:2018}
+H.~Wickham, R.~François, L.~Henry, and K.~Müller.
+\newblock \emph{\texttt{dplyr}: A Grammar of Data Manipulation}, 2018.
+\newblock URL \url{https://CRAN.R-project.org/package=dplyr}.
+\newblock R package version 0.7.6.
+
+\end{thebibliography}
