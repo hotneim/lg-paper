@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.4.8)  12 FEB 2021 12:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.4.8)  12 FEB 2021 14:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -915,7 +915,7 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
 
 pdfTeX warning: pdflatex.exe (file ./gaussian-example.pdf): PDF inclusion: foun
 d PDF version <1.7>, but at most version <1.5> allowed
-<gaussian-example.pdf, id=136, 361.35pt x 289.08pt>
+<gaussian-example.pdf, id=142, 361.35pt x 289.08pt>
 File: gaussian-example.pdf Graphic file (type pdf)
 <use gaussian-example.pdf>
 Package pdftex.def Info: gaussian-example.pdf  used on input line 55.
@@ -924,7 +924,7 @@ Package pdftex.def Info: gaussian-example.pdf  used on input line 55.
 
 pdfTeX warning: pdflatex.exe (file ./returns-example.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<returns-example.pdf, id=137, 361.35pt x 289.08pt>
+<returns-example.pdf, id=143, 361.35pt x 289.08pt>
 File: returns-example.pdf Graphic file (type pdf)
 <use returns-example.pdf>
 Package pdftex.def Info: returns-example.pdf  used on input line 59.
@@ -957,7 +957,7 @@ LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 
 pdfTeX warning: pdflatex.exe (file ./faithful.pdf): PDF inclusion: found PDF ve
 rsion <1.7>, but at most version <1.5> allowed
-<faithful.pdf, id=1766, 361.35pt x 289.08pt>
+<faithful.pdf, id=1773, 361.35pt x 289.08pt>
 File: faithful.pdf Graphic file (type pdf)
 <use faithful.pdf>
 Package pdftex.def Info: faithful.pdf  used on input line 223.
@@ -966,28 +966,28 @@ Package pdftex.def Info: faithful.pdf  used on input line 223.
 
 pdfTeX warning: pdflatex.exe (file ./faithful-transformed.pdf): PDF inclusion: 
 found PDF version <1.7>, but at most version <1.5> allowed
-<faithful-transformed.pdf, id=1767, 361.35pt x 289.08pt>
+<faithful-transformed.pdf, id=1774, 361.35pt x 289.08pt>
 File: faithful-transformed.pdf Graphic file (type pdf)
 <use faithful-transformed.pdf>
 Package pdftex.def Info: faithful-transformed.pdf  used on input line 227.
 (pdftex.def)             Requested size: 191.2008pt x 152.96024pt.
 [6] [7 <./faithful.pdf> <./faithful-transformed.pdf>]
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 320.
+(Font)              scaled to size 10.42007pt on input line 324.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 7.91925pt on input line 320.
+(Font)              scaled to size 7.91925pt on input line 324.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 320.
+(Font)              scaled to size 6.25204pt on input line 324.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 320.
+(Font)              scaled to size 10.42007pt on input line 324.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 7.91925pt on input line 320.
+(Font)              scaled to size 7.91925pt on input line 324.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 320.
+(Font)              scaled to size 6.25204pt on input line 324.
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.20004pt on input line 324.
+(Font)              scaled to size 10.20004pt on input line 328.
 
-Overfull \hbox (23.39899pt too wide) in paragraph at lines 320--338
+Overfull \hbox (23.39899pt too wide) in paragraph at lines 324--342
  [][] 
  []
 
@@ -995,41 +995,41 @@ Overfull \hbox (23.39899pt too wide) in paragraph at lines 320--338
 
 pdfTeX warning: pdflatex.exe (file ./loccor-example.pdf): PDF inclusion: found 
 PDF version <1.7>, but at most version <1.5> allowed
-<loccor-example.pdf, id=1821, 361.35pt x 216.81pt>
+<loccor-example.pdf, id=1827, 361.35pt x 216.81pt>
 File: loccor-example.pdf Graphic file (type pdf)
 <use loccor-example.pdf>
-Package pdftex.def Info: loccor-example.pdf  used on input line 365.
+Package pdftex.def Info: loccor-example.pdf  used on input line 369.
 (pdftex.def)             Requested size: 191.2008pt x 114.72017pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./density-example.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<density-example.pdf, id=1822, 361.35pt x 216.81pt>
+<density-example.pdf, id=1828, 361.35pt x 216.81pt>
 File: density-example.pdf Graphic file (type pdf)
 <use density-example.pdf>
-Package pdftex.def Info: density-example.pdf  used on input line 370.
+Package pdftex.def Info: density-example.pdf  used on input line 374.
 (pdftex.def)             Requested size: 191.2008pt x 114.72017pt.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 8.33606pt on input line 371.
+(Font)              scaled to size 8.33606pt on input line 375.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 8.33606pt on input line 371.
+(Font)              scaled to size 8.33606pt on input line 375.
 [9 <./loccor-example.pdf> <./density-example.pdf>] [10] [11] [12] [13]
 
 pdfTeX warning: pdflatex.exe (file ./graphics1.pdf): PDF inclusion: found PDF v
 ersion <1.7>, but at most version <1.5> allowed
-<graphics1.pdf, id=1961, 505.89pt x 361.35pt>
+<graphics1.pdf, id=1968, 505.89pt x 361.35pt>
 File: graphics1.pdf Graphic file (type pdf)
 <use graphics1.pdf>
-Package pdftex.def Info: graphics1.pdf  used on input line 697.
+Package pdftex.def Info: graphics1.pdf  used on input line 705.
 (pdftex.def)             Requested size: 398.33858pt x 284.53156pt.
-
+[14] [15]
 
 pdfTeX warning: pdflatex.exe (file ./graphics2.pdf): PDF inclusion: found PDF v
 ersion <1.7>, but at most version <1.5> allowed
-<graphics2.pdf, id=1962, 505.89pt x 361.35pt>
+<graphics2.pdf, id=1983, 505.89pt x 361.35pt>
 File: graphics2.pdf Graphic file (type pdf)
 <use graphics2.pdf>
-Package pdftex.def Info: graphics2.pdf  used on input line 705.
+Package pdftex.def Info: graphics2.pdf  used on input line 713.
 (pdftex.def)             Requested size: 398.33858pt x 284.53156pt.
 (./RJwrapper.bbl (./RJwrapper.brf)
 \tf@brf=\write6
@@ -1040,23 +1040,22 @@ Package pdftex.def Info: graphics2.pdf  used on input line 705.
 LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
 (Font)              using `T1/zi4/m/n' instead on input line 13.
 
-[14] [15] [16 <./graphics1.pdf> <./graphics2.pdf
+LaTeX Font Info:    Font shape `T1/zi4/m/it' will be
+(Font)              scaled to size 9.18004pt on input line 43.
+[16] [17 <./graphics1.pdf> <./graphics2.pdf
 
 pdfTeX warning: pdflatex.exe (file ./graphics2.pdf): PDF inclusion: multiple pd
 fs with page group included in a single page
->]
-LaTeX Font Info:    Font shape `T1/zi4/m/it' will be
-(Font)              scaled to size 9.18004pt on input line 43.
-) [17]) [18]
+>])) [18]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 28.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 28.
  (./RJwrapper.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 28.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 28.
 Package rerunfilecheck Info: File `RJwrapper.out' has not changed.
-(rerunfilecheck)             Checksum: 8EA445FDC55570E4E6210400E87C8F9B;1047.
+(rerunfilecheck)             Checksum: 6798A7819CA23DA518C992398C735BC0;1130.
 Package rerunfilecheck Info: File `RJwrapper.brf' has not changed.
-(rerunfilecheck)             Checksum: CE8046BF896072BFB8E1C94561EBC147;3254.
+(rerunfilecheck)             Checksum: 5FEC63B9E3704DE4FA4DC8ED55A2B255;3309.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1064,11 +1063,11 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 28.
  ) 
 Here is how much of TeX's memory you used:
- 22775 strings out of 480994
- 408484 string characters out of 5916033
- 696056 words of memory out of 5000000
- 37410 multiletter control sequences out of 15000+600000
- 599948 words of font info for 320 fonts, out of 8000000 for 9000
+ 22780 strings out of 480994
+ 408535 string characters out of 5916033
+ 695081 words of memory out of 5000000
+ 37411 multiletter control sequences out of 15000+600000
+ 600097 words of font info for 322 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  68i,12n,100p,1215b,788s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2019/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}{c:/texli
@@ -1084,10 +1083,10 @@ msfonts/cm/cmr10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm
 st/fonts/type1/public/mathpazo/fplmri.pfb><c:/texlive/2019/texmf-dist/fonts/typ
 e1/urw/palatino/uplb8a.pfb><c:/texlive/2019/texmf-dist/fonts/type1/urw/palatino
 /uplr8a.pfb><c:/texlive/2019/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on RJwrapper.pdf (18 pages, 1237831 bytes).
+Output written on RJwrapper.pdf (18 pages, 1239832 bytes).
 PDF statistics:
- 2638 PDF objects out of 2984 (max. 8388607)
- 597 compressed objects within 6 object streams
- 95 named destinations out of 1000 (max. 500000)
- 43173 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 2648 PDF objects out of 2984 (max. 8388607)
+ 606 compressed objects within 7 object streams
+ 96 named destinations out of 1000 (max. 500000)
+ 43181 words of extra memory for PDF output out of 51595 (max. 10000000)
 

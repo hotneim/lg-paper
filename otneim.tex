@@ -34,7 +34,7 @@ where $K$ is a symmetric density function (the kernel) and $b$ is a tuning param
 &= \arg\max_{\theta \in \Theta} \frac{1}{nb}\sum_{i=1}^n K\left(\frac{X_i - x}{b}\right)\log f(X_i; \theta) - \int \frac{1}{b}K\left(\frac{y - x}{b}\right)f(y;\theta)\,\textrm{d}y,
 \label{eq:loclik}
 \end{align}
-where, again, $K$ is a symmetric density function and $b$ is a bandwidth parameter that controls the smoothness of the estimate. 
+where, again, $K$ is a symmetric density function and $b$ is a bandwidth parameter that controls the smoothness of the estimate. The second term in the local likelihood function is a penalty that ensures that the estimated density $\widehat f_X(x) = f(x; \widehat\theta(x))$ converges correctly to the true density function $f_X(x)$ as the sample size $n$ increases to infinity and the bandwidth $b$ decreases towards zero. See \citet{hjor:jone:1996} for a detailed discussion about this construction.
 
 \citet{tjos:huft:2013} consider the bivariate case $X = (X_1, X_2)$ and take $F_{\theta}$ to be the family of bivariate normal distributions consisting of densities on the form
 
@@ -63,7 +63,7 @@ and take special interest in the estimated correlation function $\widehat\rho(x)
     \label{fig:initial-example}
   \end{figure}
   
-In Figure \ref{fig:initial-example} we have plotted the estimated LGC for two bivariate data sets; 1000 simulated observations from a binormal distribution having correlation equal to 0.5, and the daily return on the CAC40 and FTSE100 stock indices on 1000 consecutive trading days starting on May 5th 2014. In the first panel, we see that the estimated local correlation coincides with the global correlation, except for the estimation error. In the second panel we see clearly that the local correlation, and thus the dependence, is stronger in the lower left and upper right regions of the distribution than in central parts. The phenomenon of local dependence is well known in the financial literature, and using the LGC it can be measured, interpreted, and visualized in a natural way. The interpretation of this particular figure is that extreme observations on the two stock indices are more strongly dependent than the less extreme observations. 
+In Figure \ref{fig:initial-example} we have plotted the estimated LGC for two bivariate data sets on a grid; 1000 simulated observations from a binormal distribution having correlation equal to 0.5, and the daily return on the CAC40 and FTSE100 stock indices on 1000 consecutive trading days starting on May 5th 2014. In the first panel, we see that the estimated local correlation coincides with the global correlation, except for the estimation error. In the second panel we see clearly that the local correlation, and thus the dependence, is stronger in the lower left and upper right regions of the distribution than in central parts. The phenomenon of local dependence is well known in the financial literature, and using the LGC it can be measured, interpreted, and visualized in a natural way. The interpretation of this particular figure is that extreme observations on the two stock indices are more strongly dependent than the less extreme observations. 
 
 One may obtain these particular estimates from the older \CRANpkg{localgauss}-package (as well as the \CRANpkg{lg}-package of course), but the plotting routine that was used to produce these figures is included in the \CRANpkg{lg}-package and will be described in more detail in Section \ref{chap:graphics}.
 
@@ -150,7 +150,7 @@ T^{CI}_{n, b} = \int h(\widehat\alpha(z)) \, \textrm{d}F_n(z).
 \end{equation}
 \citet{otne:tjos:2019} describe a bootstrap procedure for generating replicates of $T_{n,b}^{CI}$ under the null hypothesis. In Section \ref{chap:partial} we demonstrate how the \CRANpkg{lg}-package may be used to extract estimates of the local partial correlation and perform tests for conditional independence according to this scheme.
 
-\section{The \texttt{lg}-object} 
+\section{The first step: Creating the \texttt{lg}-object} 
 \label{chap:lgobject}
 
 The local Gaussian correlation may be used to perform a number of statistical analyses, as is evident from the preceding section. The practitioner must first, however, make three quite specific modelling choices; namely (i) to choose an estimation method, i.e. the level of simplification in multivariate applications, (ii) to determine whether the data should be transformed towards marginal standard normality before estimating the LGC, and (iii) to choose a set of bandwidths, or at least a method for calculating bandwidths. The architecture of the \pkg{lg}-packages requires the user to make these choices \emph{before} endeavoring further into specific applications by imposing a strict, two step procedure:
@@ -262,6 +262,7 @@ cross-validation procedure, which is slow, but accurate with respect to density 
 where \(\widehat\theta^{(-i)}(x)\) is the parameter estimate obtained after deleting observation \(X_i\) from the data, is proportional to a quantity that estimates the Kullback-Leibler distance between \(f(\cdot, \widehat\theta(\cdot))\) and the true density \(f(\cdot)\), see \citet{bere:tjos:2014}. The cross-validated bandwidth \(b_{CV}\) is hence given by \[b_{CV} = \arg\min_b \,\, CV(b).\] If we, for example, wish to use the simplified estimation procedure on the transformed data, we need bandwidths for the marginal estimates of the local means and standard deviations, as well as a \(2\times2\) diagonal bandwidth matrix for each pair of variables. This is accomplished by the following call to \code{lg\_main()}:
 
 \begin{example}
+R> # Create the lg-object with bandwidths chosen by cross-validation
 R> lg_object <- lg_main(x,
 R+                      est_method = "5par_marginals_fixed",
 R+                      transform_to_marginal_normality = TRUE,
@@ -272,6 +273,7 @@ The \code{lg\_object} now contains the necessary bandwidths for this configurati
 \code{bw}-element:
 
 \begin{example}
+R> # Print out the bandwidths
 R> lg_object$bw
 
 $marginal
@@ -294,10 +296,12 @@ specifying \code{bw\_method\ =\ "plugin"}, the \code{lg\_main()}-function will s
 the effect of switching to plugin bandwidths in the code below: 
 
 \begin{example}
+R> # Make the lg-object with plugin bandwidths
 R> lg_object <- lg_main(x,
 R+                      est_method = "5par_marginals_fixed",
 R+                      transform_to_marginal_normality = TRUE,
 R+                      bw_method = "plugin")
+R> # Print out the bandwidths
 R> lg_object$bw
 
 $marginal
@@ -463,10 +467,13 @@ Three independence tests based on the LGC have appeared in the literature thus f
 As we noted in Section \ref{chap:background}, their practical implementations are very similar, and the \CRANpkg{lg}-package provides the function \code{ind\_test()} to perform the tests. Let us first consider the iid case, and generate 500 observations \code{test\_x} from the well known parabola model \(X_2 = X_1^2 + \varepsilon\), where both \(X_1\) and \(\varepsilon\) are independent and standard normal. In this case, \(X_1\) and \(X_2\) are uncorrelated, but obviously strongly dependent. \citet{bere:tjos:2014} considers mainly the full bivariate fit to the raw data, which we easily encode into the lg-object as before. The implementation of the test using 100 bootstrap replicates is shown below.
 
 \begin{example}
+R> # Make the lg-object
 R> lg_object <- lg_main(test_x, 
 R+                      est_method = "5par",
 R+                      transform_to_marginal_normality = TRUE)
+R> # Perform the independence test
 R> test_result <- ind_test(lg_object, n_rep = 100)
+R> # Print out the p-value of the test
 R> test_result$p_value
 
 [1] 0
@@ -628,6 +635,7 @@ The plotting function is highly customizable and provides a number of options co
 In the first example we generate a set of bivariate normally distributed data using the \CRANpkg{mvtnorm}-package \citep{gentz:etal:2018} and estimate the local Gaussian correlation on a regular \code{grid} using the \code{dlg()}-function. Passing the resulting \code{dlg\_object} to \code{corplot()} without further arguments results in Figure \ref{fig:graphics1}.
 
 \begin{example}
+R> # Make a regular grid in the domain of the distribution
 R> grid <- expand.grid(seq(-3, 3, length.out = 7),
 R+                     seq(-3, 3, length.out = 7))
 R> 
@@ -706,6 +714,10 @@ R+   theme_classic()
 \caption{Dependence map produced by tweaking the arguments of \code{corplot()}}
 \label{fig:graphics2}
 \end{figure}
+
+\section{Conclusion} 
+
+The statistical literature has seen a number of applications of local Gaussian approximations in the last decade, covering several topics in dependence modeling and inference, as well as the estimation of multivariate density and conditional density functions. In this paper, we demonstrate the implementation of these methods i the R programming language using the \CRANpkg{lg}-package, as well as the graphical representation of the estimated local Gaussian correlation. The package is complete, in the sense that all major methods that have been published within this framework is now easily accessible to the practitioner. The package is also modular; Future methodological developments using local Gaussian approximations may be added to the package with little effort. 
 
 \bibliography{otneim}
 
