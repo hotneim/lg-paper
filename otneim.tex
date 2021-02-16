@@ -5,16 +5,17 @@
 \maketitle
 
 \abstract{
-The package \CRANpkg{lg} for the R programming language provides implementations of recent methodological advances on applications of the local Gaussian correlation. This includes estimation of the local Gaussian correlation itself, multivariate density estimation, conditional density estimation, various tests for independence and conditional independence, as well as a graphical module for creating dependence maps. This paper describes the \CRANpkg{lg} package, its principles and its practical use.
+The package \CRANpkg{lg} for the R programming language provides implementations of recent methodological advances on applications of the local Gaussian correlation. This includes estimation of the local Gaussian correlation itself, multivariate density estimation, conditional density estimation, various tests for independence and conditional independence, as well as a graphical module for creating dependence maps. This paper describes the \CRANpkg{lg} package, its principles, and its practical use.
 }
 
 \section{Introduction}
+\label{chap:introduction}
 
-\citet{tjos:huft:2013} propose the \emph{local Gaussian correlation} (LGC) as a new measure of statistical dependence between two stochastic variables $X_1$ and $X_2$, which has the following important property yet unrivaled in the literature: It can separate between positive and negative nonlinear dependence while still reducing to the ordinary Pearson's correlation coefficient if $X_1$ and $X_2$ are jointly normally distributed. The R-package \CRANpkg{localgauss} \citep{bere:klep:tjos:2014} provides two important functions in this context; one that calculates the sample LGC based on observed values of $(X_1,X_2)$, and one that uses the estimated LGC to perform a local test of independence between $X_1$ and $X_2$ as described in detail by \citet{bere:tjos:2014}.  
+\citet{tjos:huft:2013} propose the \emph{local Gaussian correlation} (LGC) as a new measure of statistical dependence between two stochastic variables $X_1$ and $X_2$, which has the following important property yet unrivaled in the literature: It can separate between positive and negative nonlinear dependence while still reducing to the ordinary Pearson correlation coefficient if $X_1$ and $X_2$ are jointly normally distributed. The R-package \CRANpkg{localgauss} \citep{bere:klep:tjos:2014} provides two important functions in this context; one that calculates the sample LGC based on observed values of $(X_1,X_2)$, and one that uses the estimated LGC to perform a local test of independence between $X_1$ and $X_2$ as described in detail by \citet{bere:tjos:2014}.  
 
 We have lately seen a number of new applications of the LGC that the \CRANpkg{localgauss}-package does not support, however. \citet{stov:tjos:huft:2014} use the LGC to test for financial contagion across markets during crises. \citet{otne:tjos:2017} present a procedure for estimating multivariate density functions via the LGC, which \citet{otne:tjos:2018} modify in order to compute estimates of conditional density functions. \citet{laca:tjos:2017} present a test for serial independence within a time series, which \citet{laca:tjos:2018} extend in order to include a test for cross-correlation between two time series. Finally, \citet{otne:tjos:2019} develop the local Gaussian \emph{partial} correlation (LGPC) as a measure of conditional dependence, and a corresponding test for conditional independence. 
 
-This paper describes the \CRANpkg{lg}-package \citep{otne:2019}, which provides a unified framework to implement all these methods, as well as a tool for visualizing the LGC and LGPC as dependence maps (and conditional dependence maps). \citet{jord:tjos:2017} use the LGC in spectral analysis of time series, but those methods have their own computational ecosystem in the \pkg{localgaussSpec}-package, \citet{jord:2018}.
+This paper describes the \CRANpkg{lg}-package \citep{otne:2019}, which provides a unified framework to implement all these methods, as well as a tool for visualizing the LGC and LGPC as dependence maps. \citet{jord:tjos:2017} use the LGC in spectral analysis of time series, but those methods have their own computational ecosystem in the \pkg{localgaussSpec}-package, \citet{jord:2018}.
 
 In Section \ref{chap:background} we provide a brief introduction to the LGC as well as the methods and applications referred to above. In Section \ref{chap:lgobject} we describe the core function in the \CRANpkg{lg}-package and move on to demonstrate the implementation of various applications in Section \ref{chap:inference}. We conclude this paper in Section \ref{chap:graphics} by demonstrating the graphical capabilities of the \CRANpkg{lg}-package.
 
@@ -23,7 +24,7 @@ In Section \ref{chap:background} we provide a brief introduction to the LGC as w
 
 Consider a random vector $X$ having the unknown probability density function $f_X(x)$. It is a standard task to estimate $f_X$ based on a random sample $X_1,\ldots, X_n$, and the statistical literature provides an abundance of methods to accomplish this. One may, for example, make the assumption that the unknown density function has a particular parametric form, $f_X \in F_{\theta}$, where $F_{\theta} = \{f(x;\theta), \theta \in \Theta\}$ is a family of probability density functions indexed by some parameter $\theta$, and where $\Theta$ is the parameter space. Under this assumption we will typically produce an estimate of the parameter $\theta$, written $\widehat \theta$, using the maximum likelihood method. The estimated probability density function is then given as $\widehat f_X(x) = f(x; \widehat\theta)$.
 
-A different approach is to estimate $f_X(\cdot)$ without any prior parametric assumptions. The classical method for non-parametric denstity estimation is the kernel estimator 
+A different approach is to estimate $f_X(\cdot)$ without any prior parametric assumptions. The classical method for non-parametric density estimation is the kernel estimator 
 $$\widehat f_X(x) = \frac{1}{nb}\sum_{i=1}^n K\left(\frac{X_i - x}{b}\right),$$
 where $K$ is a symmetric density function (the kernel) and $b$ is a tuning parameter (the bandwidth) that controls the smoothness of the estimate $\widehat f_X(\cdot)$. See \citet{silv:1986} for an introduction to this topic. There is also a massive statistical literature on density estimation containing extensions and improvements to the classical methods to be used in various practical situations. 
 
@@ -34,7 +35,7 @@ where $K$ is a symmetric density function (the kernel) and $b$ is a tuning param
 &= \arg\max_{\theta \in \Theta} \frac{1}{nb}\sum_{i=1}^n K\left(\frac{X_i - x}{b}\right)\log f(X_i; \theta) - \int \frac{1}{b}K\left(\frac{y - x}{b}\right)f(y;\theta)\,\textrm{d}y,
 \label{eq:loclik}
 \end{align}
-where, again, $K$ is a symmetric density function and $b$ is a bandwidth parameter that controls the smoothness of the estimate. The second term in the local likelihood function is a penalty that ensures that the estimated density $\widehat f_X(x) = f(x; \widehat\theta(x))$ converges correctly to the true density function $f_X(x)$ as the sample size $n$ increases to infinity and the bandwidth $b$ decreases towards zero. See \citet{hjor:jone:1996} for a detailed discussion about this construction.
+where, again, $K$ is a symmetric density function and $b$ is a bandwidth parameter that controls the smoothness of the estimate. The second term in the local likelihood function is a penalty that ensures that the estimated density $\widehat f_X(x) = f(x; \widehat\theta(x))$ converges correctly to the true density function $f_X(x)$ as the sample size $n$ increases to infinity, and the bandwidth $b$ decreases towards zero. See \citet{hjor:jone:1996} for a detailed discussion about this construction.
 
 \citet{tjos:huft:2013} consider the bivariate case $X = (X_1, X_2)$ and take $F_{\theta}$ to be the family of bivariate normal distributions consisting of densities on the form
 
@@ -63,7 +64,7 @@ and take special interest in the estimated correlation function $\widehat\rho(x)
     \label{fig:initial-example}
   \end{figure}
   
-In Figure \ref{fig:initial-example} we have plotted the estimated LGC for two bivariate data sets on a grid; 1000 simulated observations from a binormal distribution having correlation equal to 0.5, and the daily return on the CAC40 and FTSE100 stock indices on 1000 consecutive trading days starting on May 5th 2014. In the first panel, we see that the estimated local correlation coincides with the global correlation, except for the estimation error. In the second panel we see clearly that the local correlation, and thus the dependence, is stronger in the lower left and upper right regions of the distribution than in central parts. The phenomenon of local dependence is well known in the financial literature, and using the LGC it can be measured, interpreted, and visualized in a natural way. The interpretation of this particular figure is that extreme observations on the two stock indices are more strongly dependent than the less extreme observations. 
+In Figure \ref{fig:initial-example} we have plotted the estimated LGC for two bivariate data sets on a grid; 1000 simulated observations from a binormal distribution having correlation equal to 0.5, and the daily return on the CAC40 and FTSE100 stock indices on 1000 consecutive trading days starting on May 5th 2014. In the first panel, we see that the estimated local correlation coincides with the global correlation, except for the estimation error. In the second panel we see clearly that the local correlation, and thus the dependence, is stronger in the lower left and upper right regions of the distribution than in the central parts. The phenomenon of local dependence is well known in the financial literature, and using the LGC it can be measured, interpreted, and visualized in a natural way. The interpretation of this particular figure is that extreme observations on the two stock indices are more strongly dependent than the less extreme observations. 
 
 One may obtain these particular estimates from the older \CRANpkg{localgauss}-package (as well as the \CRANpkg{lg}-package of course), but the plotting routine that was used to produce these figures is included in the \CRANpkg{lg}-package and will be described in more detail in Section \ref{chap:graphics}.
 
@@ -75,7 +76,7 @@ T_{n,b} = \int_S h\left(\widehat \rho(x) \right) \,\textrm{d}F_n(x)
 \end{equation}
 for some non-negative function $h$, for example $h(x) = x^2$ or $h(x) = |x|$. Critical values may be obtained by permutations of the data under the null hypothesis, and we demonstrate the implementation of this test using the \CRANpkg{lg}-package in Section \ref{chap:indtests}.
 
-Consider next the stationary time series $\{X_t\}$. The autocorrelation function (ACF) $\rho_k = \rho(X_t, X_{t-k})$ is a well known concept for describing the serial dependence in the time seris, but the ACF is, again, only capable to completely capture \emph{linear} serial dependence. \citet{laca:tjos:2017} seek to remedy this by rather calculating the the local correlation between $X_t$ and $X_{t-k}$. This leads to a test for serial independence in the natural way. In fact, this work is mainly a theoretical exercise in order to accommodate time series dependence. Testing for independence between $X_t$ and $X_{t-k}$ using observations $\{X_t, X_{t-k}\}_{t = k+1}^T$ leads to the same test statistic \eqref{eq:test-statistic1} and bootstrap procedure as the test for independence between $X_1$ and $X_2$ that we described above. 
+Consider next the stationary time series $\{X_t\}$. The autocorrelation function (ACF) $\rho_k = \rho(X_t, X_{t-k})$ is a well known concept for describing the serial dependence in the time series, but the ACF is, again, only capable to completely capture \emph{linear} serial dependence. \citet{laca:tjos:2017} seek to remedy this by rather calculating the the local correlation between $X_t$ and $X_{t-k}$. This leads to a test for serial independence in the natural way. In fact, this work is mainly a theoretical exercise in order to accommodate time series dependence. Testing for independence between $X_t$ and $X_{t-k}$ using observations $\{X_t, X_{t-k}\}_{t = k+1}^T$ leads to the same test statistic \eqref{eq:test-statistic1} and bootstrap procedure as the test for independence between $X_1$ and $X_2$ that we described above. 
 
 \citet{laca:tjos:2018} extend this problem to test for serial cross-dependence between two time series $\{X_t, Y_t\}$ by measuring the LGC between $X_t$ and $Y_{t-k}$. Departures from $\widehat\rho(x,y) \equiv 0$ is again taken as evidence against independence, and the test statistic (\ref{eq:test-statistic1}) provides an aggregate measure of this discrepancy in the specified region $S$. In this case, however, we can not obtain replicates of the test statistic under the null hypothesis by simple permutations of the data. \citet{laca:tjos:2018} suggest rather two block bootstrap procedures to this end, using fixed and random block sizes respectively. The tests for serial dependence, and serial cross-dependence are both implemented in the \CRANpkg{lg}-package, as we demonstrate in Section \ref{chap:indtests}.
 
@@ -85,14 +86,16 @@ $$T_{n,b}^D = \sum_{k=1}^K \left\{\widehat\rho_C(x_k, x_k) - \widehat\rho_{NC}(x
 
 where $w(\cdot, \cdot)$ is a weight function that serve the same purpose as the integration area $S$ in (\ref{eq:test-statistic1}). In this case, \citet{stov:tjos:huft:2014} show that a standard bootstrap will suffice in order to produce approximate replicates of $T_{n,b}^D$ under the null hypothesis of no financial contagion, and we demonstrate the implementation of this test using the \CRANpkg{lg}-package in Section \ref{chap:cont}.
 
-Although the original work by \citet{hjor:jone:1996} provide a general framework for local likelihood density estimation, using any $p$-variate parametric family as the local family, it is evident that the method may struggle in multivariate applications much in the same way as the kernel density estimator does. This is a consequence of the curse of dimensionality, the effect of which is sought remedied by an algorithm provided by \citet{otne:tjos:2017}. The idea is to fit the $p$-variate normal distribution $\psi(\mu, \Sigma)$ locally, where $\mu$ is the vector of $p$ expectations, and $\Sigma$ is the $p\times p$ covariance matrix (to which the correlation matrix $R$ corresponds), but under the following structural simplifications:
+Although the original work by \citet{hjor:jone:1996} provide a general framework for local likelihood density estimation using any $p$-variate parametric family as the local family, it is evident that the method may struggle in multivariate applications much in the same way as the kernel density estimator does. This is a consequence of the curse of dimensionality, the effect of which is sought remedied by an algorithm provided by \citet{otne:tjos:2017}. The idea is to fit the $p$-variate normal distribution $\psi(\mu, \Sigma)$ locally, where $\mu$ is the vector of $p$ expectations, and $\Sigma$ is the $p\times p$ covariance matrix (to which the correlation matrix $R$ corresponds), but under the following structural simplifications:
 
 \begin{align}
 \mu_i(x) &= \mu_i(x_1, \ldots, x_p) \stackrel{\textrm{def}}{=} \mu_(x_i) \label{eq:simp-mu}\\
 \sigma_i(x) &= \sigma_i(x_1, \ldots, x_p)  \stackrel{\textrm{def}}{=} \sigma_i(x_i) \label{eq:simp-sig} \\
 \rho_{ij}(x) &= \rho_{ij}(x_1, \ldots, x_p) \stackrel{\textrm{def}}{=} \rho_{ij}(x_i, x_j). \label{eq:simp-rho}
 \end{align}
-\citet{otne:tjos:2017} estimate the local parameters above by first obtaining univariate marginal locally Gaussian fits (eqs. \ref{eq:simp-mu} and \ref{eq:simp-sig}), and then pairwise bivariate locally Gaussian fits (eq. \ref{eq:simp-rho}). In the second step the estimates $\widehat\mu_i(x_i)$, $\widehat\mu_j(x_j)$, $\widehat\sigma_i(x_i)$ and $\widehat\sigma_j(x_j)$ are kept fixed in the estimation of the pairwise local correlation. They argue further that the following transformation technique will produce better density estimates in many situations. Denote by $F_i(x_i)$, $i = 1,\ldots, p$ the marginal distribution functions of the stochastic vector $X$, and by $\widehat F_i(x_i) = n^{-1}\sum_{i=1}^n 1(X_i \leq x_i)$ their empirical counterparts. They then estimate the density $f_Z(z)$ of the vector $Z = \{\Phi^{-1}(F_i(X_i))\}_{i=1,\ldots,p}$, in practice approximated by 
+\citet{otne:tjos:2017} estimate the local parameters above by first obtaining univariate marginal locally Gaussian fits (eqs. \ref{eq:simp-mu} and \ref{eq:simp-sig}), and then pairwise bivariate locally Gaussian fits (eq. \ref{eq:simp-rho}). In the second step the estimates $\widehat\mu_i(x_i)$, $\widehat\mu_j(x_j)$, $\widehat\sigma_i(x_i)$ and $\widehat\sigma_j(x_j)$ are kept fixed in the estimation of the pairwise local correlation. They argue further that the following transformation technique will produce better density estimates in many situations. 
+
+Denote by $F_i(x_i)$, $i = 1,\ldots, p$ the marginal distribution functions of the stochastic vector $X$, and by $\widehat F_i(x_i) = n^{-1}\sum_{i=1}^n 1(X_i \leq x_i)$ their empirical counterparts. They then estimate the density $f_Z(z)$ of the vector $Z = \{\Phi^{-1}(F_i(X_i))\}_{i=1,\ldots,p}$, in practice approximated by 
 
 \begin{equation}
 \widehat Z = \{\Phi^{-1}(\widehat F_i(X_i))\}_{i=1,\ldots,p}, 
@@ -106,10 +109,10 @@ and where $\Psi(\cdot)$ is the univariate standard normal cdf. In that case, the
 \end{equation}
 so that the only parameter functions left to estimate are the pairwise local Gaussian correlations $R(z) = \{\rho_{ij}(z_i, z_j)\}_{i<j}$. We use the notation $Z$, $z_i$ and $z_j$ to signify that the estimation is performed on the (approximate) standard normal scale, or $z$-scale for short. We can then estimate the joint density $f_Z(z)$ of $Z$ as
 \begin{equation}
-\widehat f_Z(z) = \psi(z; \mu = 0, \sigma = 1, R = \widehat R(z)),
+\widehat f_Z(z) = \psi(z; \mu(z) = 0, \sigma(z) = 1, R = \widehat R(z)),
 \label{eq:transformed-density}
 \end{equation}
-and then substitute $f_Z$ for $\widehat f_Z$ in the following relation obtained by \citet{otne:tjos:2017} in order to estimate the unknown density $f_X$:
+where $\mu(z) = \{\mu_i(z)\}$ and $\sigma(z) = \{\sigma_i(z)\}$ for $i=1,\ldots,p$, and then substitute $f_Z$ for $\widehat f_Z$ in the following relation obtained by \citet{otne:tjos:2017} in order to estimate the unknown density $f_X$:
 \begin{equation}
 f(x) = f_{Z}\big(\Phi^{-1}(F_1(x_1)), \ldots, \Phi^{-1}(F_p(x_p))\big) \times \prod_{i=1}^p \frac{f_i(x_i)}{\phi\big(\Phi^{-1}(F_i(x_i))\big)},
 \label{eq:backtrans}
@@ -134,9 +137,9 @@ then the conditional density of $X^{(1)}|X^{(2)} = x^{(2)}$ can also be written 
 \mu^*(z) &= R_{12}(z)R_{22}(z)^{-1}z^{(2)},  \label{eq:cond-mu-trans}\\
 \Sigma^*(z) &= R_{11}(z) - R_{12}(z)R_{22}(z)^{-1}R_{21}(z), \label{eq:cond-sig-trans}
 \end{align}
-where we, again, switch to $z$-notation in order to make it clear that these quantities are estimated on the standard normal $z$-scale. An estimator $\widehat f_{X^{(1)}|X^{(2)}}(\cdot|\cdot)$ of the conditional density $f_{X^{(1)}|X^{(2)}}(\cdot|\cdot)$ follows immediately from an expression corresponding to (\ref{eq:backtrans}), and the \CRANpkg{lg}-package provides functions for implementing this estimator in R, and we describe the implementation of this functionality in Section \ref{chap:density}.
+where we, again, switch to $z$-notation in order to make it clear that these quantities are estimated on the standard normal $z$-scale. An estimator $\widehat f_{X^{(1)}|X^{(2)}}(\cdot|\cdot)$ of the conditional density $f_{X^{(1)}|X^{(2)}}(\cdot|\cdot)$ follows immediately from an expression corresponding to (\ref{eq:backtrans}), and the \CRANpkg{lg}-package provides functions for implementing this estimator in R. We describe the implementation of this functionality in Section \ref{chap:density}.
 
-Finally, we refer to \citet{otne:tjos:2019}, who take the local version of the conditional covariance matrix (\ref{eq:cond-sig}) (or (\ref{eq:cond-sig-trans}) in the transformed case) as a measure for conditional dependence, and thus as an instrument to test for conditional independence. Consider the stochastic vector $X = \left(X^{(1)}, X^{(2)}, X^{(3)}\right)$, where $X^{(1)}$ and $X^{(2)}$ are scalars and $X^{(3)}$ may be a vector. $X^{(1)}$ is conditionally independent from $X^{(2)}$ given $X^{(3)}$, written $X^{(1)} \perp X^{(2)} \,|\,X^{(3)}$, if the stochastic variables $X^{(1)}\,|\,X^{(3)}$ and $X^{(2)}\,|\,X^{(3)}$ are independent, or, equivalently, if the joint conditional density of $X^{(1)}$ and $X^{(2)}$ given $X^{(3)}$ can be written as the product
+Finally, we refer to \citet{otne:tjos:2019} who take the local version of the conditional covariance matrix (\ref{eq:cond-sig}) (or (\ref{eq:cond-sig-trans}) in the transformed case) as a measure for conditional dependence, and thus as an instrument to test for conditional independence. Consider the stochastic vector $X = \left(X^{(1)}, X^{(2)}, X^{(3)}\right)$, where $X^{(1)}$ and $X^{(2)}$ are scalars and $X^{(3)}$ may be a vector. $X^{(1)}$ is conditionally independent from $X^{(2)}$ given $X^{(3)}$, written $X^{(1)} \perp X^{(2)} \,|\,X^{(3)}$, if the stochastic variables $X^{(1)}\,|\,X^{(3)}$ and $X^{(2)}\,|\,X^{(3)}$ are independent, or, equivalently, if the joint conditional density of $X^{(1)}$ and $X^{(2)}$ given $X^{(3)}$ can be written as the product
 
 \begin{equation}
 f_{X^{(1)},X^{(2)}|X^{(3)}}\left(x^{(1)}, x^{(2)}|x^{(3)}\right) = f_{X^{(1)}|X^{(3)}}\left(x^{(1)}|x^{(3)}\right) \times f_{X^{(2)}|X^{(3)}}\left(x^{(2)}|x^{(3)}\right).
@@ -153,14 +156,14 @@ T^{CI}_{n, b} = \int h(\widehat\alpha(z)) \, \textrm{d}F_n(z).
 \section{The first step: Creating the \texttt{lg}-object} 
 \label{chap:lgobject}
 
-The local Gaussian correlation may be used to perform a number of statistical analyses, as is evident from the preceding section. The practitioner must first, however, make three quite specific modelling choices; namely (i) to choose an estimation method, i.e. the level of simplification in multivariate applications, (ii) to determine whether the data should be transformed towards marginal standard normality before estimating the LGC, and (iii) to choose a set of bandwidths, or at least a method for calculating bandwidths. The architecture of the \pkg{lg}-packages requires the user to make these choices \emph{before} endeavoring further into specific applications by imposing a strict, two step procedure:
+The local Gaussian correlation may be used to perform a number of statistical analyses, as is evident from the preceding section. The practitioner must first, however, make three quite specific modeling choices; namely (i) to choose an estimation method, i.e. the level of simplification in multivariate applications, (ii) to determine whether the data should be transformed towards marginal standard normality before estimating the LGC, and (iii) to choose a set of bandwidths, or at least a method for calculating bandwidths. The architecture of the \pkg{lg}-packages requires the user to make these choices \emph{before} endeavoring further into specific applications by imposing a strict, two step procedure:
 
 \begin{itemize}
 \item[1.] Create an lg-object.
 \item[2.] Apply relevant analysis functions to the lg-object.
 \end{itemize}
 
-In the following we assume that one has a \emph{data set} \code{x} loaded into the R workspace, which must be an $n\times p$ matrix (one column per variable, one row per observation), possibly including \code{NA}`s which will be excluded, or a data frame having the same dimensions. The fundamental syntax for creating an lg-object is \code{lg\_object <- lg\_main(x)}, and we will in this section explain how the modelling decisions (i)-(iii) can be encoded into the lg-object.
+In the following we assume that one has a \emph{data set} \code{x} loaded into the R workspace, which must be an $n\times p$ matrix (one column per variable, one row per observation), possibly including \code{NA}s which will be excluded from the analysis, or a data frame having the same dimensions. The fundamental syntax for creating an lg-object is \code{lg\_object <- lg\_main(x)}, and we will in this section explain how the modeling decisions (i)-(iii) can be encoded into the lg-object by using appropriate arguments in this function.
 
 \subsection{Selecting the estimation method}
 \label{chap:est-method}
@@ -186,7 +189,7 @@ R> lg_object$est_method
 [1] "5par"
 \end{example}
 
-Note that the full locally Gaussian fit for raw data is not available if the number of variables $p$ is greater than 2. The \code{lg\_main()}-function will check for this and throw an error if $p>2$ and \code{est\_method = "5par"}.
+Note that the full locally Gaussian fit for raw data is not available if the number of variables $p$ is greater than 2. The \code{lg\_main()}-function will check for this and print out an error message if $p>2$ and \code{est\_method = "5par"}.
 
 \textbf{2. A simplified locally Gaussian fit for multivariate data.} As described in the preceding section, we may construct a simplified estimation procedure for calculating the LGC in two steps, which in principle works for any number of dimensions (including $p=2$):
 
@@ -200,15 +203,15 @@ To use this method, create the lg-object by running the following line:
 R> lg_object2 <- lg_main(x, est_method = "5par_marginals_fixed")
 \end{example}
 
-\textbf{3. A simplified locally Gaussian fit for marginally standard normal data.} This estimation method is applicable for marginally standard normal data, or data that have been transformed to approximate marginal standard normality by e.g. the transformation (\ref{eq:trans}). In that case, we fix the marginal expectation functions and standard deviation functions to the constant values $0$ and $1$ respectively, rather then estimating them. To use this estimation method, create the lg-object by running
+\textbf{3. A simplified locally Gaussian fit for marginally standard normal data.} This estimation method is applicable for marginally standard normal data, or data that have been transformed to approximate marginal standard normality by e.g. the transformation (\ref{eq:trans}). In that case, we fix the marginal expectation functions and standard deviation functions to the constant values $0$ and $1$ respectively, and estimate only the pairwise local Gaussian correlations as in (\ref{eq:transformed-density}). To use this estimation method, create the lg-object by running
 
 \begin{example}
 R> lg_object3 <- lg_main(x, est_method = "1par")
 \end{example}
 
-Note that the function call above will issue a warning if the option for transforming the data to marginal standard normality is not at the same time set to \code{TRUE}, see the next sub-section for details.
+Note that the function call above will issue a warning if the option for transforming the data to marginal standard normality is not at the same time set to \code{TRUE}, see the next sub-section on data transformation for details.
 
-\textbf{4. A full locally Gaussian fit for trivariate data.} If $p = 3$ \emph{and} we choose to transform the data to marginal standard normality (see the next sub-section), the transformed density $f_Z(\cdot)$ in (\ref{eq:transformed-density}) may be estimated by jointly estimating the three local correlations $\rho_{12}(z_1, z_2, z_3)$, $\rho_{13}(z_1, z_2, z_3)$ and $\rho_{23}(z_1, z_2, z_3)$. This estimation method was introduced recently by \citet{otne:tjos:2019} in order to increase power of their conditional independence test, but it can be used in any application described in this paper that consider trivariate data. To use this estimation method, create the lg-object by running
+\textbf{4. A full locally Gaussian fit for trivariate data.} If the number of variables $p$ is equal to $3$ \emph{and} we choose to transform the data to marginal standard normality (see the next sub-section), the transformed density $f_Z(\cdot)$ in (\ref{eq:transformed-density}) may be estimated by jointly estimating the three local correlations $\rho_{12}(z_1, z_2, z_3)$, $\rho_{13}(z_1, z_2, z_3)$ and $\rho_{23}(z_1, z_2, z_3)$. This estimation method was introduced recently by \citet{otne:tjos:2019} in order to increase power of their conditional independence test, but it can be used in any application described in this paper that consider trivariate data. To use this estimation method, create the lg-object by running
 
 \begin{example}
 R> lg_object4 <- lg_main(x, est_method = "trivariate")
@@ -253,7 +256,7 @@ In the multivariate applications referred to in this paper, the bandwidth \(b\) 
 naturally taken to represent its inverse. 
 
 We have in practice seen two automatic bandwidth selectors employed in the applications referred to in Section \ref{chap:background}: a
-cross-validation procedure, which is slow, but accurate with respect to density estimation, and a plug-in bandwidth that is quick, but cruder. We use the argument
+cross-validation procedure, that is fairly slow to compute, but accurate with respect to density estimation, and a plug-in bandwidth that is much quicker to calculate, but less accurate with respect to density estimation. We use the argument
 \code{bw\_method} to the \code{lg\_main()}-function in order to choose between the two.
 
 \textbf{1. Choosing bandwidths by cross-validation.} The functional
@@ -283,11 +286,11 @@ $marginal_convergence
 [1] 0 0
 
 $joint
-  x1 x2       bw1      bw2 convergence
+x1 x2         bw1      bw2 convergence
 1  1  2 0.2946889 0.331971           0
 \end{example}
 This is itself a list, containing the crucial elements \code{marginal} for the \(p\) marginal bandwidths, and \code{joint} that contains the
-\(p(p-1)/2\) bandwidth matrices, one for each pair of variables (which in this bivariate example just \emph{one} variable pair, (\code{x1,\ x2})). The convergence flags stem from the \code{optim()} and \code{optimize()} functions that we use to obtain the minimizer of \(CV(\cdot)\), and 0 indicates successful convergence.
+\(p(p-1)/2\) bandwidth matrices, one for each pair of variables (which in this bivariate example just \emph{one} variable pair, (\code{x1,\ x2})). The convergence flags stem from the built-in R functions \code{optim()} and \code{optimize()} that we use to obtain the minimizer of \(CV(\cdot)\), and 0 indicates successful convergence.
 
 \textbf{2. Using plug-in bandwidths.} Obtaining cross-validated bandwidths is unfortunately fairly slow on a standard computer. For sample sizes in the 500-1000 range, the process may take several minutes, which is unfeasible when embarking on analyses that require e.g. resampling. We have therefore implemented a quick plug-in bandwidth selector as well, that may suffice in many practical situations, especially at the initial or exploratory stage. 
 
@@ -343,12 +346,12 @@ Argument & Explanation & Default value \\
 \label{tab:arguments-lg-main}
 \end{table}
 
-In the sub-section above we present the three most important arguments to \code{lg\_main()}. Each of them allows the user to configure one of the three crucial modelling choices. Let us complete this treatment by covering some possibilities to make further adjustments to those choices.
+In the sub-section above we present the three most important arguments to \code{lg\_main()}. Each of them allows the user to configure one of the three crucial modeling choices. Let us complete this treatment by covering some possibilities to make further adjustments to those choices.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  The user may supply the bandwidths directly to \code{lg\_main()} by passing them to the \code{bw}-argument. They have to be in the   correct format though, which is a list containing the vector \code{\$marginal} if \code{est\_method\ =\ 5par\_marginals\_fixed}, and always a data frame \code{\$joint} specifying all variable pairs in the \code{x1} and \code{x2} columns and the corresponding bandwidths
+  The user may supply the bandwidths directly to \code{lg\_main()} by passing them to the \code{bw}-argument. They have to be in the   correct format though, which is a list containing the vector \code{\$marginal} if \code{est\_method\ =\ "5par\_marginals\_fixed"}, and always a data frame \code{\$joint} specifying all variable pairs in the \code{x1} and \code{x2} columns and the corresponding bandwidths
   in the \code{bw1} and \code{bw2} columns. The function \code{bw\_simple()} will assist in creating bandwidth objects.
 \item
   If \code{bw\_method\ =\ "plugin"} the user may change the proportionality constant and exponent in the plugin formula for the joint and, if applicable, the marginal bandwidths. See Table \ref{tab:arguments-lg-main} for the necessary argument names.
@@ -359,9 +362,11 @@ In the sub-section above we present the three most important arguments to \code{
 \section{Statistical inference using the \texttt{lg}-package}
 \label{chap:inference}
 
-We proceed in this section to demonstrate how to implement each of the tasks that we discussed in Section \ref{chap:background}. The general pattern is to pass an lg-object, see the preceding section, to one of the estimation or test functions provided in the \CRANpkg{lg}-package. We will look at some financial data in the examples: the monthly returns on the S\&P500, FTSE100, DAX30 and TOPIX stock indices from January 1985 to March 2018. This data is available as an online appendix to this article.
+We proceed in this section to demonstrate how to implement each of the tasks that we discussed in Section \ref{chap:background}. The general pattern is to pass the lg-object to one of the estimation or test functions provided in the \CRANpkg{lg}-package. We will look at some financial data in the examples: the monthly returns on the S\&P500, FTSE100, DAX30 and TOPIX stock indices from January 1985 to March 2018. The data is available as an online appendix to this article.
 
 \subsection{Density estimation}\label{chap:density}
+
+We start by introducing a basic function for estimating the LGC on a grid as described by \citet{otne:tjos:2017}, and thus also a probability density estimate. We create a grid, \code{x0}, having the same number of columns as the data in the code below. Note that we use the pipe operator \code{\%\textgreater{}\%} from the \CRANpkg{magrittr}-package \citep{bach:wick:2014} as well as functions from the \CRANpkg{dplyr}-package \citep{wick:fran:mull:2018} for easy manipulation of data frames. We then pass the grid and the lg-object containing our modeling choices to the \code{dlg()}-function in order to do the estimation.
 
 \begin{figure}[t]
     \centering
@@ -378,8 +383,6 @@ We proceed in this section to demonstrate how to implement each of the tasks tha
     \caption{Important output from the \code{dlg()-function}.}
     \label{fig:lgc-plot}
   \end{figure}
-
-We start by introducing a basic function for estimating the LGC on a grid as described by \citet{otne:tjos:2017}, and thus also a probability density estimate. We create a grid, \code{x0}, having the same number of columns as the data in the code below. Note that we use the pipe operator \code{\%\textgreater{}\%} from the \CRANpkg{magrittr}-package \citep{bach:wick:2014} as well as functions from the \CRANpkg{dplyr}-package \citep{wick:fran:mull:2018} for easy manipulation of data frames. We then pass the grid and the lg-object containing our modelling choices to the \code{dlg()}-function in order to do the estimation.
 
 \begin{example}
 R> # Create an lg-object
@@ -448,7 +451,7 @@ R> # Calculate the conditional density
 R> cond_density <- clg(lg_object, grid = x0, cond = c(0, 0))
 \end{example}
 
-The key argument in the call to \code{clg()} above is \code{cond\ =\ c(0,\ 0)}. This means that the last two variables are conditioning variables (and hence that the first \(4-2=2\) variables are free), and that the value of the conditioning variables are fixed at DAX30 = 0 and TOPIX = 0 respectively. This also means that the number of columns in the grid \code{x0} plus the number of elements in \code{cond} must equal the number of variables \(p\) in the data set, and the call to \code{clg()} will result in an error message if this requirement is not fulfilled. Apart from \code{cond}, the \code{clg()}-function takes exactly the same arguments as \code{dlg()} listed in Table \ref{tab:dlg}, and the conditional density estimate in our example is available in the vector \code{cond\_density\$f\_est}.
+The key argument in the call to \code{clg()} above is \code{cond\ =\ c(0,\ 0)}. This means that the last two variables are conditioning variables (and hence that the first \(4-2=2\) variables are free), and that the value of the conditioning variables are fixed at DAX30 = 0 and TOPIX = 0 respectively. This also means that the number of columns in the grid \code{x0} plus the number of elements in \code{cond} must equal the number of variables \(p\) in the data set, and the call to \code{clg()} will result in an error message if this requirement is not fulfilled. The \code{clg()}-function takes mostly the same arguments as \code{dlg()} listed in Table \ref{tab:dlg}, and the conditional density estimate in our example is available in the vector \code{cond\_density\$f\_est}.
 
 \subsection{Tests for independence}
 \label{chap:indtests}
@@ -563,9 +566,12 @@ R> result$p_value
 \subsection{Partial local correlation}
 \label{chap:partial}
 
-Consider finally the work by \citet{otne:tjos:2019} who take the off-diagonal element in the local correlation matrix corresponding to the local conditional covariance matrix \eqref{eq:cond-sig} or \eqref{eq:cond-sig-trans} as a local measure of conditional dependence between two stochastic variables \(X^{(1)}\) and \(X^{(2)}\) given the stochastic vector \(X^{(3)}\), and furthermore, in the case with data having been transformed to marginal standard normality, take the statistic
-\[T^{CI}_{n, b} = \int h(\widehat\alpha(z)) \, \textrm{d}F_n(z)\]
-as a measure of \emph{global} conditional dependence. To this end, the \CRANpkg{lg}-package provides two functions. The first, \code{partial\_cor()}, calculates the local partial correlations as well as their estimated standard deviations, on a specified grid in the \((x^{(1)}, x^{(2)}, x^{(3)})\)-space, and is essentially a wrapper function for the \code{clg()}-function presented in Section \ref{chap:density}. See Table \ref{tab:arguments-partial-cor} for details. The second function, \code{ci\_test()}, performs a test for conditional independence between the first two variables in a data set given the remaining variables.
+Consider finally the work by \citet{otne:tjos:2019} who take the off-diagonal element in the local correlation matrix corresponding to the local conditional covariance matrix \eqref{eq:cond-sig} or \eqref{eq:cond-sig-trans} as a local measure of conditional dependence between two stochastic variables \(X^{(1)}\) and \(X^{(2)}\) given the stochastic vector \(X^{(3)}\). Furthermore, in the case with data having been transformed to marginal standard normality, they take the statistic
+\begin{equation}
+T^{CI}_{n, b} = \int h(\widehat\alpha(z)) \, \textrm{d}F_n(z)
+\label{eq:condintstat}
+\end{equation}
+as a measure of \emph{global} conditional dependence. The \CRANpkg{lg}-package provides two key functions in this framework. The first, \code{partial\_cor()}, calculates the local partial correlations as well as their estimated standard deviations on a specified grid in the \((x^{(1)}, x^{(2)}, x^{(3)})\)-space, and is essentially a wrapper function for the \code{clg()}-function presented in Section \ref{chap:density}. See Table \ref{tab:arguments-partial-cor} for details. The second function, \code{ci\_test()}, performs a test for conditional independence between the first two variables in a data set given the remaining variables using the test statistic (\ref{eq:condintstat}) and a special bootstrap procedure (described briefly below) for approximating the null distribution.
 
 \renewcommand{\arraystretch}{1.2}
 \begin{table}[p]
@@ -610,7 +616,7 @@ in the period starting in January 2009, the converse of which is a sufficient, b
 The critical values of this test are calculated using the bootstrap under the null hypothesis by independently resampling replicates from
 the conditional density estimates \(\widehat f_{X^{(1)|X^{(3)}}}(x^{(1)}|x^{(3)})\) and \(\widehat f_{X^{(2)|X^{(3)}}}(x^{(2)}|x^{(3)})\), as obtained by the \code{clg()}-function, using an approximated accept-reject algorithm. In order to avoid excessive optimization of the local likelihood function \eqref{eq:loclik}, we estimate \(f_{X^{(1)|X^{(3)}}}\) and \(f_{X^{(2)|X^{(3)}}}\) on the univariate regular grids \(x_0^{(1)}\) and \(x_0^{(2)}\) respectively (while keeping \(x^{(3)}\) fixed at the observed values of \(X^{(3)}\)), and produce interpolating functions \(\tilde f_{X^{(1)|X^{(3)}}}\) and \(\tilde f_{X^{(2)|X^{(3)}}}\) using cubic splines. It is much less computationally intensive to generate replicates from \(\tilde f\) than directly from \(\widehat f\).
 
-We refer to the documentation of the \CRANpkg{lg}-package for details on how to finely tune the behavior of the bootstrapping algorithm by altering the arguments of the \code{ci\_test()}-function, and rather describe the arguments most suitable for modifications by the user in Table \ref{tab:arguments-ci-test}.
+We refer to the documentation of the \CRANpkg{lg}-package for details on how to finely tune the behavior of the bootstrapping algorithm by altering the arguments of the \code{ci\_test()}-function, and limit our treatment to describing the arguments most suitable for modifications by the user in Table \ref{tab:arguments-ci-test}.
 
 \begin{example}
 R> # Create the lg-object
@@ -628,9 +634,9 @@ The conditional independence test does not provide evidence against the null hyp
 
 \section{Graphics}\label{chap:graphics}
 
-We conclude this article by describing the \code{corplot()} function, that may be used to draw dependence maps such as those displayed in Figure \ref{fig:initial-example}. \citet{bere:klep:tjos:2014} report on such capabilities in the \CRANpkg{localgauss}-package, but the possibility of creating dependence maps was unfortunately removed from \CRANpkg{localgauss} in the latest version 0.4.0 due to incompatibilities with the \CRANpkg{ggplot2} \citep{wick:2016} plotting engine. We make up for this loss by providing \code{corplot()}, a function that plots the estimated local correlations as provided by \code{dlg()}, or the estimated local \emph{partial} correlations as provided by \code{partial\_cor()}.
+We conclude this article by describing the \code{corplot()} function for drawing dependence maps such as those displayed in Figure \ref{fig:initial-example}. \citet{bere:klep:tjos:2014} report on such capabilities in the \CRANpkg{localgauss}-package, but the possibility of creating dependence maps was unfortunately removed from \CRANpkg{localgauss} in the latest version 0.4.0 due to incompatibilities with the \CRANpkg{ggplot2} \citep{wick:2016} plotting engine. We make up for this loss by providing \code{corplot()}, a function that plots the estimated local correlations as provided by \code{dlg()}, or the estimated local \emph{partial} correlations as provided by \code{partial\_cor()}.
 
-The plotting function is highly customizable and provides a number of options covering most basic graphical options. Users well versed in the \CRANpkg{ggplot2}-package may also modify the graphical object returned by corplot in the standard way by adding layers as demonstrate in the example below.
+The plotting function is highly customizable and provides a number of options covering most basic graphical options. Users well versed in the \CRANpkg{ggplot2}-package may also modify the graphical object returned by \code{corplot()} in the standard way by adding layers as demonstrated in the example below.
 
 In the first example we generate a set of bivariate normally distributed data using the \CRANpkg{mvtnorm}-package \citep{gentz:etal:2018} and estimate the local Gaussian correlation on a regular \code{grid} using the \code{dlg()}-function. Passing the resulting \code{dlg\_object} to \code{corplot()} without further arguments results in Figure \ref{fig:graphics1}.
 
@@ -717,7 +723,11 @@ R+   theme_classic()
 
 \section{Conclusion} 
 
-The statistical literature has seen a number of applications of local Gaussian approximations in the last decade, covering several topics in dependence modeling and inference, as well as the estimation of multivariate density and conditional density functions. In this paper, we demonstrate the implementation of these methods i the R programming language using the \CRANpkg{lg}-package, as well as the graphical representation of the estimated local Gaussian correlation. The package is complete, in the sense that all major methods that have been published within this framework is now easily accessible to the practitioner. The package is also designed with a modular infrastructure that allows future methodological developments using local Gaussian approximations to be added to the package. 
+The statistical literature has seen a number of applications of local Gaussian approximations in the last decade, covering several topics in dependence modeling and inference, as well as the estimation of multivariate density and conditional density functions. In this paper, we demonstrate the implementation of these methods i the R programming language using the \CRANpkg{lg}-package, as well as the graphical representation of the estimated local Gaussian correlation. The package is complete, in the sense that all major methods that have been published within this framework is now easily accessible to the practitioner. The package is also designed with a modular infrastructure that allows future methodological developments using local Gaussian approximations to be easily added to the package. 
+
+\section{Acknowledgements}
+
+The author gratefully acknowledges the constructive comments made by an anonymous referee.
 
 \bibliography{otneim}
 

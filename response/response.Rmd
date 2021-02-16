@@ -31,17 +31,17 @@ I am very grateful to the Editor of *The R Journal* for considering this paper f
 
 >  *Further the explanation of the basic idea of the GLC measure in the section ‘Statistical background’ could be improved, thereby making the concept accessible for a broader audience and making this paper more ‘self-contained’.*
 
-**My response:** Thank you for this input. The reviewer is correct to point out that the section on "Statistical background" is fairly short and does not go into great detail. The composition of this section is the result of a careful trade-off. On the one hand I fully agree that a more comprehensive section would be desireable, because that would allow the reader to appreciate the technical nuances within the topic of the LGC. On the other hand, it is the purpose of this paper to demonstrate the practical implementation of a large and diverse set of statistical methods. It is my conclusion that this section should not be much longer than it is in its current form (approx. 4 pages), which naturally puts a limit on the level of detail. I have instead opted to provide a rather acessible birds-eye view of the relevant literature, which I believe is useful to the readership of *The R Journal*. This section has been heavily revised as prompted by the reviewer in his/her comment above..
+**My response:** Thank you for this input. The reviewer is correct to point out that the section on "Statistical background" is fairly short and does not go into great detail. The composition of this section is the result of a careful trade-off. On the one hand I fully agree that a more comprehensive section would be desirable, because that would allow the reader to appreciate the technical nuances within the topic of the LGC in greater detail. On the other hand, it is the purpose of this paper to demonstrate the practical implementation of a large and diverse set of statistical methods. It is my conclusion that this section should not be much longer than it is in its current form (approx. 4 pages), which naturally puts a limit on the level of detail. I have instead opted to provide a rather accessible birds-eye view of the relevant literature, which I believe is useful to the readership of *The R Journal*. This section has been heavily revised as prompted by the reviewer in his/her comment above.
 
 > *Also, the whole manuscript is not well-structured: The section with the illustration of the lg package is called ‘The lg-object’ and more importantly is confusing since, for instance, all three different estimation methods implemented are outlined, although not necessary for the (empirical) example chosen by the author;*
 
-**My reponse:** The paper is structured in the same way as the package it describes. There are two steps to every analysis; in the first step the practitioner must make several modeling choices which to a large degree is guided by the respective references. This step is in common for all applications. I have created a new title for this section to clarify the structure; it is now called "The first step: Creating the lg-object". The various applications are then described separately and organized under informative headlines.
+**My reponse:** The paper is structured in the same way as the package it describes. There are two steps to every analysis; in the first step the practitioner must make several modeling choices which to a large degree is guided by the respective references. This step is common to all applications. I have created a new title for this section to clarify the structure. It is now called "The first step: Creating the lg-object". The various applications are then described separately and organized under informative headlines.
 
 I am not entirely sure how to address the reviewer's second remark. The examples in this paper are chosen to illustrate key steps in the implementation of the methods. It is not my intention to demonstrate all possible combinations of the modeling choices in examples, as that would likely reduce the value of the paper as a general, readable and fairly brief introduction to the relevant R-functions.
 
 > *A section with a summary or concluding remarks is fully missing!*
 
-**My response:** I have added some conluding remarks in the end of the paper.
+**My response:** I have added some concluding remarks in the end of the paper.
 
 > *Furthermore, the code chunks presented in the paper could be augmented by comments explaining what the different lines of code do; For example, in the section ‘Graphics’ it is not clear what expand.grid does.*
 
@@ -59,17 +59,17 @@ Here are my responses to the specific issues addressed by the reviewer:
 
 > *2. Are you sure that Equation (1) is correct? I think $x$ should be $x_0$ . Further I do not understand $y$ and assume $y$ should be $X_i$?*
 
-**My response:** Yes, this equation is correct. The $x$ is the location of the local estimate as defined in the discussion leading up to equation (1), and $y$ is the integration variable in the penalty term of the local likelihood function. This notation is consistent with the literature on local likelihood estimation. The second term does in fact not depend directly on the observations, and the reviewer is quite right to point out that this is not obvious. I have therefore added a comment about this, as well as a reference to a much more detailed justification of the local likelihood function.
+**My response:** Yes, this equation is correct. The $x$ is the location of the local estimate as defined in the discussion leading up to equation (1), and $y$ is the integration variable in the penalty term of the local likelihood function. This notation is consistent with the literature on local likelihood estimation. Indeed, the second term does not depend on the data, and the reviewer is quite right to point out that this is not obvious. I have therefore added a comment about this, as well as a reference to a much more detailed justification of the local likelihood function.
 
 > *3. Are you sure that ‘the same test statistic and bootstrap procedure as for independence’ can be used with time series data? Is not block-bootstrap necessary in this case? Please explain briefly! (p. 3)*
 
-**My response:** In this particular case we can use the standard bootstrap, because serial dependence in a time series can be investigated by considering the statistical dependence between $X_t$ and $X_{t-k}$ directly. This is a parallell to the autocorrelation function, which for a stationary time series is defined as the ordinary Pearson correlation $\gamma_k = Corr(X_t, X_{t-k})$. I have changed the formulation here so that it directly states that we obtain critical values by permutations. The block bootstrap is then introduced in the next paragraph, where it is needed to test for serial cross-dependence.
+**My response:** In this particular case we can use the standard bootstrap, because serial dependence in a time series can be investigated by considering the statistical dependence between $X_t$ and $X_{t-k}$ directly. This is a parallel to the autocorrelation function, which for a stationary time series is defined as the ordinary Pearson correlation $\gamma_k = Corr(X_t, X_{t-k})$. I have changed the formulation here so that it directly states that we obtain critical values by permutations. The block bootstrap is then introduced in the next paragraph, where it is needed to test for serial cross-dependence.
 
 > *4. I understand that the bandwidth controls how many observations are used to compute the correlation coefficient of one grid. Does lg also allow to extract the (exact) number of observations used to compute the different correlations coefficients (as depicted e.g. in Fig. 1)? I feel that from the perspective of an applied statistician, this figure could provide an intuition about how reliable one or the other coefficient is.*
 
-**My response:** The bandwidth does not define a finite region over which the usual correlation is calculated; this is, it is not the conditional correlation, and the bandwidth does not correspond to an exact number of observations. Figure 1 shows the estimated local Gaussian correlation plotted out on a grid chosen by the user, and I have pointed this out in the first line of the paragraph that introduces this figure.
+**My response:** The bandwidth does not define a finite region over which the usual correlation is calculated. The LGC is not the conditional correlation, and the bandwidth does not correspond to an exact number of observations. Figure 1 shows the estimated local Gaussian correlation plotted out on a grid chosen by the user, and I have pointed this out in the first line of the paragraph that introduces this figure.
 
-Although one can discuss the "effective number of observations" in the classical nonparametric sense, this has not been done in the literature on the LGC, and hence not a consept in the *lg*-package.
+Although one can discuss the "effective number of observations" in the classical nonparametric sense, this has not been done in the literature on the LGC, and hence is not a concept in the *lg*-package.
 
 > *5. Is it possible to test for significant differences in the correlation coefficients, for instance, from the lower left, middle and upper right in Fig. 1?*
 
@@ -78,4 +78,6 @@ Although one can discuss the "effective number of observations" in the classical
 > *6. Page 1: I suggest to change the statement ‘clever and creative techniques’ by a more scientific formulation.*
 
 **My response:** This statement has been taken out. Thank you.
+
+I addition to the changes prompted by the reviewer, I have updated a few references and made several minor adjustments to the text throughout the article to improve the presentation.
 
