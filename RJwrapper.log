@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.4.8)  12 FEB 2021 14:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.4.8)  16 FEB 2021 15:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1065,7 +1065,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 28.
 Here is how much of TeX's memory you used:
  22780 strings out of 480994
  408535 string characters out of 5916033
- 695081 words of memory out of 5000000
+ 695082 words of memory out of 5000000
  37411 multiletter control sequences out of 15000+600000
  600097 words of font info for 322 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1083,7 +1083,7 @@ msfonts/cm/cmr10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm
 st/fonts/type1/public/mathpazo/fplmri.pfb><c:/texlive/2019/texmf-dist/fonts/typ
 e1/urw/palatino/uplb8a.pfb><c:/texlive/2019/texmf-dist/fonts/type1/urw/palatino
 /uplr8a.pfb><c:/texlive/2019/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on RJwrapper.pdf (18 pages, 1239832 bytes).
+Output written on RJwrapper.pdf (18 pages, 1239629 bytes).
 PDF statistics:
  2648 PDF objects out of 2984 (max. 8388607)
  606 compressed objects within 7 object streams

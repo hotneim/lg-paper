@@ -271,7 +271,7 @@
 
 @Article{otne:tjos:2019,
   author    = {Otneim, H{\aa}kon and Tj{\o}stheim, Dag},
-  title     = {The locally {G}aussian partial correlation},
+  title     = {The locally Gaussian partial correlation},
   journal   = {Journal of Business \& Economic Statistics},
   year      = {2021},
   pages     = {1--33},

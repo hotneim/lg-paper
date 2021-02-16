@@ -71,10 +71,11 @@ L.~A. Jordanger.
 \newblock URL \url{https://github.com/LAJordanger/localgaussSpec}.
 \newblock R package.
 
-\bibitem[Jordanger and Tj{\o}stheim(2017)]{jord:tjos:2017}
+\bibitem[Jordanger and Tj{\o}stheim(2020)]{jord:tjos:2017}
 L.~A. Jordanger and D.~Tj{\o}stheim.
-\newblock Nonlinear spectral analysis via the local {G}aussian correlation.
-\newblock \emph{arXiv preprint: 1708.02166}, 2017.
+\newblock Nonlinear spectral analysis: A local gaussian approach.
+\newblock \emph{Journal of the American Statistical Association}, pages 1--55,
+  2020.
 
 \bibitem[Kunsch(1989)]{kuns:1989}
 H.~R. Kunsch.
@@ -120,10 +121,10 @@ H.~Otneim and D.~Tj{\o}stheim.
 \newblock \emph{Statistics and Computing}, 28\penalty0 (2):\penalty0 303--321,
   2018.
 
-\bibitem[Otneim and Tjøstheim(2019)]{otne:tjos:2019}
-H.~Otneim and D.~Tjøstheim.
+\bibitem[Otneim and Tj{\o}stheim(2021)]{otne:tjos:2019}
+H.~Otneim and D.~Tj{\o}stheim.
 \newblock The locally {G}aussian partial correlation.
-\newblock \emph{arXiv 1909.09681 stat.ME}, 2019.
+\newblock \emph{Journal of Business \& Economic Statistics}, pages 1--33, 2021.
 
 \bibitem[Politis and Romano(1994)]{poli:roma:1994}
 D.~N. Politis and J.~P. Romano.
