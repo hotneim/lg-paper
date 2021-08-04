@@ -1,0 +1,44 @@
+---
+title: ""
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\begin{center}
+\Large \textbf{Response to reviewer comments to the manuscript \emph{2019-146: lg: An R package for Local Gaussian Approximations} submitted to \emph{The R Journal} -- Round 2}
+\end{center}
+
+I am grateful for the opportunity to revise the paper for publication in *The R Journal*. Below are my point-by-point response to the comments made by the reviewer.
+
+> *1. What does “$\mu_i(x_1, x_2) = \mu_i(x_i)$ and $\sigma_i(x_1, x_2) = \sigma_i(x_i)$ for $i = 1, 2$” imply? According to your text – if I understand correctly – it implies dependence. However, I feel, the opposite is true. Have a look please. Compare also to Berentsen & Tjøstheim (2014), p. 788.*
+
+**My response:** I presume that the reviewer is referring to the paragraph leading up to equation (3). The statement refers to a specific condition on the true mean and variance functions of a bivariate population that leads to equivalence between independence and constant zero local correlation. The condition $\mu_i(x_1, x_2) = \mu_i(x_i)$ for $i=1,2$ means that $\mu_1$ is a function of only $x_1$, and that $\mu_2$ is a function of only $x_2$, and the same for the $\sigma$-functions. I have written out this paragraph with more details in order to make this point clear.
+
+> *2. Please confirm that Eq. (3) is complete. Compare Berentsen & Tjøstheim (2014) pp. 790-791.*
+
+**My response:** The equation is correct, and corresponds exactly to the definition of the test statistic defined in the beginning of Section 3.2 of Berentsen and Tjøstheim (2014). The notation in my paper ($\widehat \rho = \rho_{n,b}$) is more consistent with the recent publications in this field. 
+
+> *3. There is a typesetting error in Eq. (4).*
+
+**My response:** Has been fixed, thank you.
+
+> *4. I assume there is a (little) typo in the code chunk on page 14: You assign a value/information to an object called ‘dlg_object’ but then use ‘dlg_object1’, also in the following code chunks.*
+
+**My response:** Has been fixed, thank you.
+
+> *5. Please consider adding a page number to the quote from Forbes & Rigobon (2002) on p. 3.*
+
+**My response:** Has been added, thank you.
+
+> *6. Please add interpretations of the empirical findings in the empirical application(s).*
+
+**My response:** Thank you for this comment. The following empirical examples did not have practical interpretations, but they have now been added:
+
+- the caption of Figure 3,
+- the independence test on the parabola model on page 11, and
+- the test for financial contagion on page 13.
+
+

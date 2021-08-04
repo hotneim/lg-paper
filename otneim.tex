@@ -64,11 +64,11 @@ and take special interest in the estimated correlation function $\widehat\rho(x)
     \label{fig:initial-example}
   \end{figure}
   
-In Figure \ref{fig:initial-example} we have plotted the estimated LGC for two bivariate data sets on a grid; 1000 simulated observations from a binormal distribution having correlation equal to 0.5, and the daily return on the CAC40 and FTSE100 stock indices on 1000 consecutive trading days starting on May 5th 2014. In the first panel, we see that the estimated local correlation coincides with the global correlation, except for the estimation error. In the second panel we see clearly that the local correlation, and thus the dependence, is stronger in the lower left and upper right regions of the distribution than in the central parts. The phenomenon of local dependence is well known in the financial literature, and using the LGC it can be measured, interpreted, and visualized in a natural way. The interpretation of this particular figure is that extreme observations on the two stock indices are more strongly dependent than the less extreme observations. 
+In Figure \ref{fig:initial-example} we have plotted the estimated LGC for two bivariate data sets on a grid; 1000 simulated observations from a binormal distribution having correlation equal to 0.5, and the daily return on the CAC40 and FTSE100 stock indices on 1000 consecutive trading days starting on May 5th 2014 \citep{datastream}. In the first panel, we see that the estimated local correlation coincides with the global correlation, except for the estimation error. In the second panel we see clearly that the local correlation, and thus the dependence, is stronger in the lower left and upper right regions of the distribution than in the central parts. The phenomenon of local dependence is well known in the financial literature, and using the LGC it can be measured, interpreted, and visualized in a natural way. The interpretation of this particular figure is that extreme observations on the two stock indices are more strongly dependent than the less extreme observations. 
 
 One may obtain these particular estimates from the older \CRANpkg{localgauss}-package (as well as the \CRANpkg{lg}-package of course), but the plotting routine that was used to produce these figures is included in the \CRANpkg{lg}-package and will be described in more detail in Section \ref{chap:graphics}.
 
-Taking the LGC as a measure of dependence opens up for a number of possibilities to construct statistical tests. \citet{bere:tjos:2014} show that $\rho(x) \equiv 0$ implies that $X_1$ and $X_2$ are independent. The converse statement holds if $\mu_i(x_1, x_2) = \mu_i(x_i)$ and $\sigma_i(x_1, x_2) = \sigma_i(x_i)$ for $i=1,2$, and in general if the observations have been suitably transformed according to a procedure presented later in this section. It follows then that departures from $\widehat\rho(x) \equiv 0$ may be taken as evidence against the hypothesis that $X_1$ and $X_2$ are statistically independent. \citet{bere:tjos:2014} formalize this notion by testing whether $\rho(x) \equiv 0$ for all $x\in S \subset \mathbb{R}^2$ using the test statistic
+Taking the LGC as a measure of dependence opens up for a number of possibilities to construct statistical tests. \citet{bere:tjos:2014} show that $\rho(x) \equiv 0$ implies that $X_1$ and $X_2$ are independent. They show further that independence between $X_1$ and $X_2$ implies $\rho(x) \equiv 0$ if the population values of the local mean and standard deviation functions satisfy the following conditions: $\mu_i(x_1, x_2) = \mu_i(x_i)$ and $\sigma_i(x_1, x_2) = \sigma_i(x_i)$ for $i=1,2$. Equivalence between independence and $\rho(x) \equiv 0$ holds in general if the observations have been suitably transformed according to a procedure presented later in this section. It follows then that departures from $\widehat\rho(x) \equiv 0$ may be taken as evidence against the hypothesis that $X_1$ and $X_2$ are statistically independent. \citet{bere:tjos:2014} formalize this notion by testing whether $\rho(x) \equiv 0$ for all $x\in S \subset \mathbb{R}^2$ using the test statistic
 
 \begin{equation}
 T_{n,b} = \int_S h\left(\widehat \rho(x) \right) \,\textrm{d}F_n(x)
@@ -80,7 +80,7 @@ Consider next the stationary time series $\{X_t\}$. The autocorrelation function
 
 \citet{laca:tjos:2018} extend this problem to test for serial cross-dependence between two time series $\{X_t, Y_t\}$ by measuring the LGC between $X_t$ and $Y_{t-k}$. Departures from $\widehat\rho(x,y) \equiv 0$ is again taken as evidence against independence, and the test statistic (\ref{eq:test-statistic1}) provides an aggregate measure of this discrepancy in the specified region $S$. In this case, however, we can not obtain replicates of the test statistic under the null hypothesis by simple permutations of the data. \citet{laca:tjos:2018} suggest rather two block bootstrap procedures to this end, using fixed and random block sizes respectively. The tests for serial dependence, and serial cross-dependence are both implemented in the \CRANpkg{lg}-package, as we demonstrate in Section \ref{chap:indtests}.
 
-We find another application of the local Gaussian approximation in the work by \citet{stov:tjos:huft:2014}, who measure and test for financial contagion. They define contagion by "a significant increase in cross-market linkages after a shock to one country" \citep{forb:rigo:2002} and employ the LGC to quantify this potential linkage. The authors estimate the LGC on a grid $\{x_1, x_2\}_k$, $k=1,\ldots,K$ along the diagonal $D=\{(x_1,x_2): x_1 = x_2\}$ \emph{before} and \emph{after} some critical event in the financial markets, denoted as the crisis (C) and the non-crisis (NC) periods respectively. They compare the two estimates using the following test statistic; 
+We find another application of the local Gaussian approximation in the work by \citet{stov:tjos:huft:2014}, who measure and test for financial contagion. They define contagion by "a significant increase in cross-market linkages after a shock to one country" \citep[p. 2223]{forb:rigo:2002} and employ the LGC to quantify this potential linkage. The authors estimate the LGC on a grid $\{x_1, x_2\}_k$, $k=1,\ldots,K$ along the diagonal $D=\{(x_1,x_2): x_1 = x_2\}$ \emph{before} and \emph{after} some critical event in the financial markets, denoted as the crisis (C) and the non-crisis (NC) periods respectively. They compare the two estimates using the following test statistic; 
 
 $$T_{n,b}^D = \sum_{k=1}^K \left\{\widehat\rho_C(x_k, x_k) - \widehat\rho_{NC}(x_k, x_k) \right\}w(x_k,x_k),$$
 
@@ -89,11 +89,11 @@ where $w(\cdot, \cdot)$ is a weight function that serve the same purpose as the 
 Although the original work by \citet{hjor:jone:1996} provide a general framework for local likelihood density estimation using any $p$-variate parametric family as the local family, it is evident that the method may struggle in multivariate applications much in the same way as the kernel density estimator does. This is a consequence of the curse of dimensionality, the effect of which is sought remedied by an algorithm provided by \citet{otne:tjos:2017}. The idea is to fit the $p$-variate normal distribution $\psi(\mu, \Sigma)$ locally, where $\mu$ is the vector of $p$ expectations, and $\Sigma$ is the $p\times p$ covariance matrix (to which the correlation matrix $R$ corresponds), but under the following structural simplifications:
 
 \begin{align}
-\mu_i(x) &= \mu_i(x_1, \ldots, x_p) \stackrel{\textrm{def}}{=} \mu_(x_i) \label{eq:simp-mu}\\
+\mu_i(x) &= \mu_i(x_1, \ldots, x_p) \stackrel{\textrm{def}}{=} \mu_i(x_i) \label{eq:simp-mu}\\
 \sigma_i(x) &= \sigma_i(x_1, \ldots, x_p)  \stackrel{\textrm{def}}{=} \sigma_i(x_i) \label{eq:simp-sig} \\
 \rho_{ij}(x) &= \rho_{ij}(x_1, \ldots, x_p) \stackrel{\textrm{def}}{=} \rho_{ij}(x_i, x_j). \label{eq:simp-rho}
 \end{align}
-\citet{otne:tjos:2017} estimate the local parameters above by first obtaining univariate marginal locally Gaussian fits (eqs. \ref{eq:simp-mu} and \ref{eq:simp-sig}), and then pairwise bivariate locally Gaussian fits (eq. \ref{eq:simp-rho}). In the second step the estimates $\widehat\mu_i(x_i)$, $\widehat\mu_j(x_j)$, $\widehat\sigma_i(x_i)$ and $\widehat\sigma_j(x_j)$ are kept fixed in the estimation of the pairwise local correlation. They argue further that the following transformation technique will produce better density estimates in many situations. 
+\citet{otne:tjos:2017} estimate the local parameters above by first obtaining univariate marginal locally Gaussian fits (eqs. \ref{eq:simp-mu} and \ref{eq:simp-sig}), and then pairwise bivariate locally Gaussian fits (eq. \ref{eq:simp-rho}). In the second step the estimates $\widehat\mu_i(x_i)$, $\widehat\mu_j(x_j)$, $\widehat\sigma_i(x_i)$ and $\widehat\sigma_j(x_j)$ are kept fixed in the estimation of the pairwise local correlation. They argue further that the following transformation technique will produce better density estimates in many situations. The motivation for introducing the simplifications defined in equations \ref{eq:simp-mu}-\ref{eq:simp-rho} can be compared to the practical advantages of estimating additive regression models, where $\textrm{E}(Y) = f(x_1, \ldots, x_p) \stackrel{\textrm{def}}{=} f_1(x_1) + \cdots + f_p(x_p)$.
 
 Denote by $F_i(x_i)$, $i = 1,\ldots, p$ the marginal distribution functions of the stochastic vector $X$, and by $\widehat F_i(x_i) = n^{-1}\sum_{i=1}^n 1(X_i \leq x_i)$ their empirical counterparts. They then estimate the density $f_Z(z)$ of the vector $Z = \{\Phi^{-1}(F_i(X_i))\}_{i=1,\ldots,p}$, in practice approximated by 
 
@@ -130,7 +130,6 @@ then $X^{(1)}|X^{(2)} = x^{(2)} \sim \mathcal{N}(\mu^*, \Sigma^*)$, where
 see e.g. \citet[chapter 4]{john:wich:2007}. \citet{otne:tjos:2018} demonstrate that this property may be translated into a corresponding local argument without modification. That is, if the joint density $f_X(\cdot)$ can be written on a locally Gaussian form 
 
 $$f_X(x) = \psi(x, \mu(x), \Sigma(x)),$$
-
 then the conditional density of $X^{(1)}|X^{(2)} = x^{(2)}$ can also be written on the same locally Gaussian form with local parameters given by equations (\ref{eq:cond-mu}) and (\ref{eq:cond-sig}), except that all quantities are $x$-dependent. If we use the transformation technique described above together with simplification (\ref{eq:simp}), the local versions of equations (\ref{eq:cond-mu}) and (\ref{eq:cond-sig}) simplify to
 
 \begin{align}
@@ -153,7 +152,7 @@ T^{CI}_{n, b} = \int h(\widehat\alpha(z)) \, \textrm{d}F_n(z).
 \end{equation}
 \citet{otne:tjos:2019} describe a bootstrap procedure for generating replicates of $T_{n,b}^{CI}$ under the null hypothesis. In Section \ref{chap:partial} we demonstrate how the \CRANpkg{lg}-package may be used to extract estimates of the local partial correlation and perform tests for conditional independence according to this scheme.
 
-\section{The first step: Creating the \texttt{lg}-object} 
+\section{The first step: Creating the lg-object} 
 \label{chap:lgobject}
 
 The local Gaussian correlation may be used to perform a number of statistical analyses, as is evident from the preceding section. The practitioner must first, however, make three quite specific modeling choices; namely (i) to choose an estimation method, i.e. the level of simplification in multivariate applications, (ii) to determine whether the data should be transformed towards marginal standard normality before estimating the LGC, and (iii) to choose a set of bandwidths, or at least a method for calculating bandwidths. The architecture of the \pkg{lg}-packages requires the user to make these choices \emph{before} endeavoring further into specific applications by imposing a strict, two step procedure:
@@ -362,7 +361,7 @@ In the sub-section above we present the three most important arguments to \code{
 \section{Statistical inference using the \texttt{lg}-package}
 \label{chap:inference}
 
-We proceed in this section to demonstrate how to implement each of the tasks that we discussed in Section \ref{chap:background}. The general pattern is to pass the lg-object to one of the estimation or test functions provided in the \CRANpkg{lg}-package. We will look at some financial data in the examples: the monthly returns on the S\&P500, FTSE100, DAX30 and TOPIX stock indices from January 1985 to March 2018. The data is available as an online appendix to this article.
+We proceed in this section to demonstrate how to implement each of the tasks that we discussed in Section \ref{chap:background}. The general pattern is to pass the lg-object to one of the estimation or test functions provided in the \CRANpkg{lg}-package. We will look at some financial data in the examples: the monthly returns on the S\&P500, FTSE100, DAX30 and TOPIX stock indices from January 1985 to March 2018 \citep{datastream}. 
 
 \subsection{Density estimation}\label{chap:density}
 
@@ -372,7 +371,7 @@ We start by introducing a basic function for estimating the LGC on a grid as des
     \centering
     \begin{subfigure}[t]{0.48\textwidth}
       \includegraphics[width=\textwidth]{loccor-example}
-      \caption{The estimated pairwise LGC for the stock \newline data along the diagonal.}
+      \caption{The estimated pairwise LGC for the stock \newline data along the diagonal indicating that the pairs \\ of stocks are more strongly dependent in the lower \\ part of the distribution than the upper part.}
       \label{fig:lgc-plot1}
     \end{subfigure}
     \begin{subfigure}[t]{0.48\textwidth}
@@ -481,7 +480,7 @@ R> test_result$p_value
 
 [1] 0
 \end{example}
-This may take a few minutes due to the bootstrapping. We can further specify the function \(h\) and the integration area \(S\) in the test
+This may take a few minutes to run on a desktop computer due to the bootstrapping. The small $p$-value indicate that we reject the null-hypothesis of independence between $X_1$ and $X_2$ in the parabola model defined above. We can further specify the function \(h\) and the integration area \(S\) in the test
 statistic \eqref{eq:test-statistic1}, see Table \ref{tab:indtest} for details.
 
 \renewcommand{\arraystretch}{1.2}
@@ -562,6 +561,8 @@ R> result$p_value
 
 [1] 0
 \end{example}
+
+The small $p$-value means that we reject the null-hypothesis of no financial contagion between the time series after the crisis. 
 
 \subsection{Partial local correlation}
 \label{chap:partial}
@@ -653,7 +654,7 @@ R+                      plugin_constant_joint = 4)
 R> dlg_object <- dlg(lg_object, grid = grid)
 R> 
 R> # Make a dependence map using default setup
-R> corplot(dlg_object1)
+R> corplot(dlg_object)
 \end{example}
 
 
