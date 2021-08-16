@@ -64,7 +64,7 @@ and take special interest in the estimated correlation function $\widehat\rho(x)
     \label{fig:initial-example}
   \end{figure}
   
-In Figure \ref{fig:initial-example} we have plotted the estimated LGC for two bivariate data sets on a grid; 1000 simulated observations from a binormal distribution having correlation equal to 0.5, and the daily return on the CAC40 and FTSE100 stock indices on 1000 consecutive trading days starting on May 5th 2014 \citep{datastream}. In the first panel, we see that the estimated local correlation coincides with the global correlation, except for the estimation error. In the second panel we see clearly that the local correlation, and thus the dependence, is stronger in the lower left and upper right regions of the distribution than in the central parts. The phenomenon of local dependence is well known in the financial literature, and using the LGC it can be measured, interpreted, and visualized in a natural way. The interpretation of this particular figure is that extreme observations on the two stock indices are more strongly dependent than the less extreme observations. 
+In Figure \ref{fig:initial-example} we have plotted the estimated LGC for two bivariate data sets on a grid; 1000 simulated observations from a binormal distribution having correlation equal to 0.5, and the daily return on the CAC40 and FTSE100 stock indices on 1000 consecutive trading days starting on May 5th 2014 \citep{datastream}. In the first panel, we see that the estimated local correlation coincides with the global correlation, except for the estimation error which is comparable to the uncertainty observed in other non-parametric estimation methods such as the kernel density estimator (see, for instance, \citet{otne:tjos:2017} for a formal asymptotic analysis of relevant convergence rates). In the second panel we see clearly that the local correlation, and thus the dependence, is stronger in the lower left and upper right regions of the distribution than in the central parts. The phenomenon of local dependence is well known in the financial literature, and using the LGC it can be measured, interpreted, and visualized in a natural way. The interpretation of this particular figure is that extreme observations on the two stock indices are more strongly dependent than the less extreme observations. 
 
 One may obtain these particular estimates from the older \CRANpkg{localgauss}-package (as well as the \CRANpkg{lg}-package of course), but the plotting routine that was used to produce these figures is included in the \CRANpkg{lg}-package and will be described in more detail in Section \ref{chap:graphics}.
 
@@ -167,7 +167,7 @@ In the following we assume that one has a \emph{data set} \code{x} loaded into t
 \subsection{Selecting the estimation method}
 \label{chap:est-method}
 
-Given a data set \code{x} having $n$ rows and $p \geq 2$ columns, the user must choose between four distinct estimation methods, and specify this choice by using the argument \code{est\_method} to the \code{lg\_main()}-function. We look at the built-in bivariate data set `faithful` and load the \CRANpkg{lg}-package in order to demonstrate the implementation:
+Given a data set \code{x} having $n$ rows and $p \geq 2$ columns, the user must choose between four distinct estimation methods, and specify this choice by using the argument \code{est\_method} to the \code{lg\_main()}-function. We look at the built-in bivariate data set `faithful`, which records the waiting time between eruptions and the duration of the eruption for the Old Faithful geyser in the Yellowstone National Park, USA (see the help file in R for more details: \code{?faithful}), and load the \CRANpkg{lg}-package in order to demonstrate the implementation:
 
 \begin{example}
 R> x <- faithful
@@ -215,6 +215,7 @@ Note that the function call above will issue a warning if the option for transfo
 \begin{example}
 R> lg_object4 <- lg_main(x, est_method = "trivariate")
 \end{example}
+This command will throw an error if the data set \code{x} does not have exactly three columns.
 
 \subsection{Data transformation}
 \label{data-transformation}
@@ -512,7 +513,7 @@ R> returns2 <- stock_data %>% select(SP500) %>%
 R+   mutate(sp500_lagged = lag(SP500))
 \end{example}
 
-Finally, the only thing that we must alter in order to perform the third test for serial cross-dependence is the bootstrap method. \citet{laca:tjos:2018} consider two options here, the block bootstrap with either fixed \citep{kuns:1989} or random \citep{poli:roma:1994} block sizes, and this choice is specified by choosing \code{bootstrap\_type\ =\ "block"} or \code{bootstrap\_type\ =\ "stationary"}, respectively, in the call to \code{ind\_test()}.
+Finally, the only thing that we must alter in order to perform the third test for serial cross-dependence is the bootstrap method. In the applications above, it suffices to use the standard bootstrap, where we resammple with replacement from the data. This is implemented in the \code{ind\_test()}-function by setting the \code{bootstrap\_type}-argument to \code{"plain"}, which is the default option. When testing for serial cross-dependence we need to use a block-bootstrap procedure, and \citet{laca:tjos:2018} consider two options here: The block bootstrap with either fixed \citep{kuns:1989} or random \citep{poli:roma:1994} block sizes, and this choice is specified by choosing \code{bootstrap\_type\ =\ "block"} or \code{bootstrap\_type\ =\ "stationary"}, respectively, in the call to \code{ind\_test()}. \citet{laca:tjos:2018} do not report significant differences in test performance using the different bootstrap types.
 
 \subsection{Test for financial contagion}\label{chap:cont}
 
@@ -554,15 +555,15 @@ R+                         transform_to_marginal_normality = FALSE)
 R> 
 R> # Run the test with a limited number of bootstrap replicates for 
 R> # demonstration purposes.
-R> result <- cont_test(lg_object_nc, lg_object_c, n_rep = 20)
+R> result <- cont_test(lg_object_nc, lg_object_c, n_rep = 100)
 R> 
 R> # Print out the p-value
 R> result$p_value
 
-[1] 0
+[1] 0.01
 \end{example}
 
-The small $p$-value means that we reject the null-hypothesis of no financial contagion between the time series after the crisis. 
+The small $p$-value means that we reject the null-hypothesis of no financial contagion between the time series after the crisis.
 
 \subsection{Partial local correlation}
 \label{chap:partial}
@@ -629,7 +630,7 @@ R>
 R> # Print out result
 R> test_result$p_value
 
-[1] 0.71
+[1] 0.51
 \end{example}
 The conditional independence test does not provide evidence against the null hypothesis \eqref{eq:cond-ind-test}.
 

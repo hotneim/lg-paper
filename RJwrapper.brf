@@ -16,6 +16,7 @@
 \backcite {tjos:huft:2013}{{2}{2.2}{equation.2.2.1}}
 \backcite {tjos:huft:2013}{{2}{2.2}{equation.2.2.2}}
 \backcite {datastream}{{3}{2.2}{figure.caption.2}}
+\backcite {otne:tjos:2017}{{3}{2.2}{figure.caption.2}}
 \backcite {bere:tjos:2014}{{3}{2.2}{figure.caption.2}}
 \backcite {bere:tjos:2014}{{3}{2.2}{figure.caption.2}}
 \backcite {laca:tjos:2017}{{3}{2.2}{equation.2.2.3}}
@@ -25,7 +26,7 @@
 \backcite {forb:rigo:2002}{{3}{2.2}{equation.2.2.3}}
 \backcite {stov:tjos:huft:2014}{{3}{2.2}{equation.2.2.3}}
 \backcite {hjor:jone:1996}{{3}{2.2}{equation.2.2.3}}
-\backcite {otne:tjos:2017}{{3}{2.2}{equation.2.2.3}}
+\backcite {otne:tjos:2017}{{4}{2.2}{equation.2.2.3}}
 \backcite {otne:tjos:2017}{{4}{2.2}{equation.2.2.6}}
 \backcite {otne:tjos:2017}{{4}{2.2}{equation.2.2.9}}
 \backcite {john:wich:2007}{{4}{2.2}{equation.2.2.12}}
@@ -40,8 +41,8 @@
 \backcite {otneim2016multivariate}{{8}{2.3.3}{subsection.2.3.3}}
 \backcite {datastream}{{9}{2.4}{section.2.4}}
 \backcite {otne:tjos:2017}{{9}{2.4.1}{subsection.2.4.1}}
-\backcite {bach:wick:2014}{{9}{2.4.1}{subsection.2.4.1}}
-\backcite {wick:fran:mull:2018}{{9}{2.4.1}{subsection.2.4.1}}
+\backcite {bach:wick:2014}{{10}{2.4.1}{subsection.2.4.1}}
+\backcite {wick:fran:mull:2018}{{10}{2.4.1}{subsection.2.4.1}}
 \backcite {tjos:huft:2013}{{10}{2.4.1}{figure.caption.5}}
 \backcite {bere:klep:tjos:2014}{{10}{2.4.1}{figure.caption.5}}
 \backcite {otne:tjos:2018}{{10}{2.4.1}{figure.caption.5}}
@@ -49,15 +50,16 @@
 \backcite {laca:tjos:2017}{{11}{2}{Item.5}}
 \backcite {laca:tjos:2018}{{11}{3}{Item.6}}
 \backcite {bere:tjos:2014}{{11}{2.4.2}{Item.6}}
-\backcite {hayf:raci:2008}{{12}{\caption@xref {??}{ on input line 497}}{table.caption.7}}
+\backcite {hayf:raci:2008}{{12}{\caption@xref {??}{ on input line 498}}{table.caption.7}}
 \backcite {laca:tjos:2018}{{12}{2.4.2}{table.caption.7}}
 \backcite {kuns:1989}{{12}{2.4.2}{table.caption.7}}
 \backcite {poli:roma:1994}{{12}{2.4.2}{table.caption.7}}
-\backcite {stov:tjos:huft:2014}{{12}{2.4.3}{subsection.2.4.3}}
+\backcite {laca:tjos:2018}{{12}{2.4.2}{table.caption.7}}
 \backcite {stov:tjos:huft:2014}{{12}{2.4.3}{subsection.2.4.3}}
 \backcite {stov:tjos:huft:2014}{{13}{2.4.3}{subsection.2.4.3}}
+\backcite {stov:tjos:huft:2014}{{13}{2.4.3}{subsection.2.4.3}}
 \backcite {otne:tjos:2019}{{13}{2.4.4}{subsection.2.4.4}}
-\backcite {gran:1980}{{13}{2.4.4}{table.caption.10}}
+\backcite {gran:1980}{{14}{2.4.4}{table.caption.10}}
 \backcite {bere:klep:tjos:2014}{{14}{2.5}{section.2.5}}
 \backcite {wick:2016}{{14}{2.5}{section.2.5}}
 \backcite {gentz:etal:2018}{{14}{2.5}{section.2.5}}

@@ -6,8 +6,13 @@ library(lubridate)
 library(tidyr)
 library(fGarch)
 library(dplyr)
-library(extrafont)
-loadfonts(quiet = TRUE)
+
+# Font package for exact replication of the plots. You need to install the font
+# CM Roman for this to work, as well as the pdf export commands surrounding the
+# plotting in the code below. 
+
+# library(extrafont) 
+# loadfonts(quiet = TRUE)
 
 # Initial example 1 --------
 
@@ -29,7 +34,7 @@ lg_object1 <- lg_main(x1,
                       plugin_constant_joint = 4)
 dlg_object1 <- dlg(lg_object1, grid = grid1)
 
-pdf(file = "gaussian-example.pdf", height = 4, width = 5, family = "CM Roman")
+# pdf(file = "gaussian-example.pdf", height = 4, width = 5, family = "CM Roman")
 corplot(dlg_object1, plot_thres = .01,
         xlab = "X1", ylab = "X2", 
         main = "",
@@ -39,8 +44,8 @@ corplot(dlg_object1, plot_thres = .01,
         label_size = 4) +
     theme_classic() +
     theme(legend.position = "none")
-dev.off()
-embed_fonts("gaussian-example.pdf")
+# dev.off()
+# embed_fonts("gaussian-example.pdf")
 
 # Initial example 2 --------
 
@@ -59,7 +64,7 @@ lg_object2 <- lg_main(x2,
                       plugin_constant_joint = 2)
 dlg_object2 <- dlg(lg_object2, grid = grid2)
 
-pdf(file = "returns-example.pdf", height = 4, width = 5, family = "CM Roman")
+# pdf(file = "returns-example.pdf", height = 4, width = 5, family = "CM Roman")
 corplot(dlg_object2, plot_thres = .0001,
         xlab = "CAC40", ylab = "FTSE100", 
         main = "",
@@ -71,8 +76,8 @@ corplot(dlg_object2, plot_thres = .0001,
         label_size = 3.5) +
     theme_classic() +
     theme(legend.position = "none")
-dev.off()
-embed_fonts("returns-example.pdf")
+# dev.off()
+# embed_fonts("returns-example.pdf")
 
 # The lg-object ---------
 
@@ -87,19 +92,21 @@ lg_object2 <- lg_main(x, est_method = "5par_marginals_fixed")
 
 lg_object3 <- lg_main(x, est_method = "1par")
 
-lg_object4 <- lg_main(x, est_method = "trivariate")
+# Throws error here because x is the bivariate faithful data. For trivariate 
+# estimation the data set x must have exactly three columns.
+# lg_object4 <- lg_main(x, est_method = "trivariate")
 
 lg_object <- lg_main(x, transform_to_marginal_normality = TRUE)
 
 # The transformation plots
-pdf(file = "faithful.pdf", height = 4, width = 5, family = "CM Roman")
+# pdf(file = "faithful.pdf", height = 4, width = 5, family = "CM Roman")
 x %>% ggplot + 
     geom_point(aes(x = eruptions, y = waiting)) +
     theme_classic()
-dev.off()
-embed_fonts("faithful.pdf")
+# dev.off()
+# embed_fonts("faithful.pdf")
 
-pdf(file = "faithful-transformed.pdf", height = 4, width = 5, family = "CM Roman")
+# pdf(file = "faithful-transformed.pdf", height = 4, width = 5, family = "CM Roman")
 lg_object$transformed_data %>% 
     as.data.frame %>% 
     ggplot +
@@ -107,8 +114,8 @@ lg_object$transformed_data %>%
     xlab("eruptions") +
     ylab("waiting") +
     theme_classic()
-dev.off()
-embed_fonts("faithful-transformed.pdf")
+# dev.off()
+# embed_fonts("faithful-transformed.pdf")
 
 # Bandwidth selection
 set.seed(1)
@@ -128,13 +135,6 @@ lg_object$bw
 
 # Create the stock data
 monthly <- function(x) 100*(prod((x/100 + 1)) - 1)
-
-stock_data_d <- read.csv2("G5_daily_r.csv") %>% 
-    as_tibble %>% 
-    mutate(Date = dmy(Date)) %>% 
-    select(-CAC40) %>% 
-    dplyr::filter(Date > ymd("1985-01-02")) %>% 
-    dplyr::filter(Date < ymd("1988-04-29"))
 
 stock_data <- read.csv2("G5_daily_r.csv") %>% 
     as_tibble %>% 
@@ -177,7 +177,7 @@ var_pairs <- density_object$bw$joint %>%
     select(-x1, -x2) %>% 
     unite(label, var1, var2, sep = "-")
 
-pdf(file = "loccor-example.pdf", height = 3, width = 5, family = "CM Roman")
+# pdf(file = "loccor-example.pdf", height = 3, width = 5, family = "CM Roman")
 density_object$loc_cor %>% 
     as_tibble %>% 
     (function(x) {colnames(x) <- (var_pairs %>% pull); x}) %>% 
@@ -190,10 +190,10 @@ density_object$loc_cor %>%
     ylab("LGC") + 
     ylim(c(0,1)) + 
     theme_classic()
-dev.off()
-embed_fonts("loccor-example.pdf")
+# dev.off()
+# embed_fonts("loccor-example.pdf")
 
-pdf(file = "density-example.pdf", height = 3, width = 5, family = "CM Roman")
+# pdf(file = "density-example.pdf", height = 3, width = 5, family = "CM Roman")
 density_object$f_est %>%
     as_tibble %>% 
     mutate(x0 = x0[,1]) %>% 
@@ -202,8 +202,8 @@ density_object$f_est %>%
     xlab("x") + 
     ylab("Density estimate") + 
     theme_classic()
-dev.off()
-embed_fonts("density-example.pdf")
+# dev.off()
+# embed_fonts("density-example.pdf")
 
 # The conditional density
 
@@ -260,12 +260,15 @@ crisis_start <- ymd("1987-10-18")
 crisis_end   <- ymd("1988-04-29")
 
 garch_filtrate <- function(y) {
-    invisible(capture.output(fit <- garchFit(~garch(1,1), 
-                    data = y, 
-                    cond.dist = "std")))
+    invisible(capture.output(fit <- garchFit(~ garch(1, 1), 
+                                             data = y, 
+                                             cond.dist = "std")))
     fit@residuals/fit@sigma.t
 }
 
+# The following sequence generates a warning about the use of formula(x). This
+# is a bug in the fGarch-package that appeared after the 4.0 R release. Please
+# ignore, the results are the same.
 crash_data <- returns3 %>% 
     dplyr::filter(Date >= stable_start) %>% 
     dplyr::filter(Date <= crisis_end) %>% 
@@ -313,14 +316,15 @@ lg_object_c <- lg_main(x_c,
 # Run the test with a limited number of bootstrap replicates for 
 # demonstration purposes.
 set.seed(1)
-result <- cont_test(lg_object_nc, lg_object_c, n_rep = 20)
+result <- cont_test(lg_object_nc, lg_object_c, n_rep = 100)
 
 # Print out the p-value
 result$p_value
 
 # Local partial correlation ----------
+set.seed(1)
 returns4 <- stock_data %>%
-    dplyr::filter(year(Date) > 2009) %>% 
+    dplyr::filter(year(Date) > 2000) %>% 
     mutate(FTSE100_lagged = lag(FTSE100)) %>% 
     mutate(SP500_lagged = lag(SP500)) %>% 
     select(FTSE100, SP500_lagged, FTSE100_lagged)

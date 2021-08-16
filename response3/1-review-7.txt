@@ -1,0 +1,57 @@
+Comments on "lg: An R package for Local Gaussian Approximations"
+Manuscript ID RJournal 2019-146
+
+
+* Overview: 
+
+The article describes how to use the lg package for local gaussian approximations. The proposed methodology provides insights into the correlation structure of data beyond the usual central correlation of Spearman. I think that this methodology is interesting, in particular in the context of financial analysis where tail dependence structures are of importance. I therefore think that the package will be used and the article will be consulted and cited. 
+
+* Article:
+
+I find the article clear and well written in general. 
+- I would appreciate a few words on the "faithful" dataset which is used in the examples. I didn't know what it contains and had to find that out first somewhere else.
+- I would suggest to include a few more words to explain the differences between the bootstrap procedures. In particular, I'm not sure about the difference between the "plain" and the "stationary" implementation. 
+- Some information about the minimum number of observations needed to reliably estimate the tails and boundary regions should be added. I modified the introductory example to 
+    x1 <- matrix(rnorm(1000), 500,2)
+  which indicated significant dependence in some parts of the multivariate distribution, in particular at the thin ends. Of course, my data here are independent and this is a small sample issue which should be addressed in the paper as the method suggests dependence which is not there.
+
+
+
+* Submitted code otneim.R
+
+I tested the package on an openSuse 10 tumbleweed system (state 20210724) on a thinkpad i7-8650U with 16 GB RAM with R version 4.1.0.
+
+line 90: lg_object4 <- lg_main(x, est_method = "trivariate") cannot be created as x contains 2 columns only
+
+line 132: stock_data_d is not used, could be dropped
+
+line 239: the independence test (ind_test()) takes quite some time. Is there any possibility to speed that up by using parallel computing? It took 6.805 minutes on my computer, even longer with the return data. I appreciate the warning that it takes time given in the paper. 
+
+line 269: R gave me a warning on the use of mutate(). I then obtained a p-value of 0.05 instead of the exact 0 given in the paper on page 13. I don't think that the two issues are related. But if they are not, it should be checked if the result presented in the paper is reliable or relies on anything random.
+
+    Warning messages:
+    1: Problem with `mutate()` column `return_filtered`.
+        ℹ `return_filtered = garch_filtrate(return)`.
+        ℹ Using formula(x) is deprecated when x is a character vector of length > 1.
+        Consider formula(paste(x, collapse = " ")) instead.
+        ℹ The warning occurred in group 1: exchange = SP500. 
+    2: Problem with `mutate()` column `return_filtered`.
+        ℹ `return_filtered = garch_filtrate(return)`.
+        ℹ Using formula(x) is deprecated when x is a character vector of length > 1.
+        Consider formula(paste(x, collapse = " ")) instead.
+        ℹ The warning occurred in group 2: exchange = FTSE100. 
+
+line 333: code interrupts with the following error message:
+        Error in logspline::logspline(x[, i]) : Not enough unique values
+
+I also got the following error (which is admittedly not related to the project but merely on trying to make the graphs look nicer).
+
+# Initial example 1 --------
+
+Error in pdf(file = "gaussian-example.pdf", height = 4, width = 5, family = "CM Roman")
+
+removing the command family = "CM Roman" solved the issue.
+
+
+
+
