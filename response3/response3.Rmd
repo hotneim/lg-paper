@@ -62,7 +62,7 @@ corplot(dlg_object1, plot_thres = .01,
     theme(legend.position = "none")
 ```
 
-If we have used the same random seed this figure should be identical to what the reviewer has obtained. Whether the observed local correlations represent *significant* (in the statistical sense) dependence can be investigated by looking at the estimated standard deviations, and lower/upper confidence limits which is reporten on the 95% confidence level by default, available in the `dlg_object1` in the `$loc_cor_sd`, `$loc_cor_lower` and `$loc_cor_upper` slots respectively. By plotting the estimated correlations with their confidence intervals, as I have done below, we see that zero (represented as a horizontal line) is included in almost all of the intervals. 
+If we have used the same random seed this figure should be identical to what the reviewer has obtained. Whether the observed local correlations represent *significant*  dependence (in the statistical sense) can be investigated by looking at the estimated standard deviations, and lower/upper confidence limits which is reported on the 95% confidence level by default, available in the `dlg_object1` in the `$loc_cor_sd`, `$loc_cor_lower` and `$loc_cor_upper` slots respectively. By plotting the estimated correlations with their confidence intervals, as I have done below (the $x$-axis is just an index of the grid points), we see that zero (represented as a horizontal line) is included in almost all of the intervals. 
 
 ```{r}
 data.frame(index = 1:length(dlg_object1$f_est),
@@ -106,7 +106,7 @@ It is, however, perfectly possible to wrap the functions in this package in the 
 
 > *line 269: R gave me a warning on the use of mutate().*
 
-**My response:** I confirm this behaviour on my side, and it turns out that this warning appeared after the 4.0 update of R (see `https://github.com/bstewart/stm/issues/222` for a discussion about this in relation to another package), and relates to the use of formulas in the `fGarch`-package. Fixing it requires an update to this package, so unfortunately I can not get rid of it in this example. It has not changed the results. 
+**My response:** I confirm this behavior on my side, and it turns out that this warning appeared after the 4.0 update of R (see `https://github.com/bstewart/stm/issues/222` for a discussion about this in relation to another package), and relates to the use of formulas in the `fGarch`-package. Fixing it requires an update to that package, so unfortunately I can not get rid of it in this example. It has not changed the results. 
 
 I could of course calculate the GARCH-residuals locally on my computer and then load them directly into R, but that would make it harder for a reader to apply the method to his or her own data according to the original paper; Støve et. al. (2014).
 
@@ -118,7 +118,7 @@ I have instead added a comment in the script making the user aware of the issue,
 
 > *line 333: code interrupts with the following error message: Error in logspline::logspline(x[, i]) : Not enough unique values*
 
-**My response:** Yes, thank you for noticing. In order to make the examples as lightweight as possible I have demonstrated the methods on very small samples. The sample was a bit too small in this example, which caused problems in one of the dependencies; the `logspline`-package for estimating the marginal densities. I increased the length of the multivariate time series for this example slightly, which has eliminated the problem.
+**My response:** Yes, thank you for noticing. In order to make the examples as lightweight as possible I have demonstrated the methods on very small samples. The sample was a bit too small in this example, which caused problems in one of the dependencies; the `logspline`-package for estimating the marginal densities. I increased the length of the multivariate time series for this example, which has eliminated the problem.
 
 In the last two points, the reviewer was not able to replicate the results in the paper exactly, which is probably due to a mistake in the original submission. The results should now be exactly replicable, also the parts that involve randomness due to bootstrapping.
 
@@ -131,3 +131,5 @@ In the last two points, the reviewer was not able to replicate the results in th
 > *removing the command family = "CM Roman" solved the issue.*
 
 **My response:** Yes, my apologies. My intention was to make the figures exactly replicate as presented in the paper, but this requires a specific font to be installed on the user system. This is not important in practice, so I have commented out the relevant lines for figure export, and added a remark about this on line 10 in the script.
+
+Finally, I have changed the order of lines 182 and 183 in the script in order to take care of a warning message regarding column names, resulting from a recent update in the `tibble`-package.

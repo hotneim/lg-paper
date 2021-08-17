@@ -167,7 +167,7 @@ In the following we assume that one has a \emph{data set} \code{x} loaded into t
 \subsection{Selecting the estimation method}
 \label{chap:est-method}
 
-Given a data set \code{x} having $n$ rows and $p \geq 2$ columns, the user must choose between four distinct estimation methods, and specify this choice by using the argument \code{est\_method} to the \code{lg\_main()}-function. We look at the built-in bivariate data set `faithful`, which records the waiting time between eruptions and the duration of the eruption for the Old Faithful geyser in the Yellowstone National Park, USA (see the help file in R for more details: \code{?faithful}), and load the \CRANpkg{lg}-package in order to demonstrate the implementation:
+Given a data set \code{x} having $n$ rows and $p \geq 2$ columns, the user must choose between four distinct estimation methods, and specify this choice by using the argument \code{est\_method} to the \code{lg\_main()}-function. We look at the built-in bivariate data set \code{faithful}, which records the waiting time between eruptions and the duration of the eruption for the Old Faithful geyser in the Yellowstone National Park, USA (see the help file in R for more details: \code{?faithful}), and load the \CRANpkg{lg}-package in order to demonstrate the implementation:
 
 \begin{example}
 R> x <- faithful
@@ -513,7 +513,7 @@ R> returns2 <- stock_data %>% select(SP500) %>%
 R+   mutate(sp500_lagged = lag(SP500))
 \end{example}
 
-Finally, the only thing that we must alter in order to perform the third test for serial cross-dependence is the bootstrap method. In the applications above, it suffices to use the standard bootstrap, where we resammple with replacement from the data. This is implemented in the \code{ind\_test()}-function by setting the \code{bootstrap\_type}-argument to \code{"plain"}, which is the default option. When testing for serial cross-dependence we need to use a block-bootstrap procedure, and \citet{laca:tjos:2018} consider two options here: The block bootstrap with either fixed \citep{kuns:1989} or random \citep{poli:roma:1994} block sizes, and this choice is specified by choosing \code{bootstrap\_type\ =\ "block"} or \code{bootstrap\_type\ =\ "stationary"}, respectively, in the call to \code{ind\_test()}. \citet{laca:tjos:2018} do not report significant differences in test performance using the different bootstrap types.
+Finally, the only thing that we must alter in order to perform the third test for serial cross-dependence is the bootstrap method. In the applications above, it suffices to use the standard bootstrap, where we resample with replacement from the data. This is implemented in the \code{ind\_test()}-function by setting the \code{bootstrap\_type}-argument to \code{"plain"}, which is the default option. When testing for serial cross-dependence we need to use a block-bootstrap procedure, and \citet{laca:tjos:2018} consider two options here: The block bootstrap with either fixed \citep{kuns:1989} or random \citep{poli:roma:1994} block sizes, and this choice is specified by choosing \code{bootstrap\_type\ =\ "block"} or \code{bootstrap\_type\ =\ "stationary"}, respectively, in the call to \code{ind\_test()}. \citet{laca:tjos:2018} do not report significant differences in test performance using the different bootstrap types.
 
 \subsection{Test for financial contagion}\label{chap:cont}
 

@@ -179,8 +179,8 @@ var_pairs <- density_object$bw$joint %>%
 
 # pdf(file = "loccor-example.pdf", height = 3, width = 5, family = "CM Roman")
 density_object$loc_cor %>% 
-    as_tibble %>% 
     (function(x) {colnames(x) <- (var_pairs %>% pull); x}) %>% 
+    as_tibble %>%
     mutate(x0 = x0[,1]) %>% 
     gather(pair, cor, -x0) %>% 
     ggplot() +
@@ -353,12 +353,12 @@ lg_object <- lg_main(x,
 dlg_object <- dlg(lg_object, grid = grid)
 
 # Make a dependence map using default setup
-pdf("graphics1.pdf", height = 5, width = 7, family = "CM Roman")
+# pdf("graphics1.pdf", height = 5, width = 7, family = "CM Roman")
 corplot(dlg_object1)
-dev.off()
-embed_fonts("graphics1.pdf")
+# dev.off()
+# embed_fonts("graphics1.pdf")
 
-pdf("graphics2.pdf", height = 5, width = 7, family = "CM Roman")
+# pdf("graphics2.pdf", height = 5, width = 7, family = "CM Roman")
 corplot(dlg_object1, 
         plot_obs = TRUE, 
         plot_thres = 0.01,
@@ -368,5 +368,5 @@ corplot(dlg_object1,
         xlab = "",
         ylab = "") +
     theme_classic()
-dev.off()
-embed_fonts("graphics2.pdf")
+# dev.off()
+# embed_fonts("graphics2.pdf")
