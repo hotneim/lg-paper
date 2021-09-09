@@ -7,7 +7,7 @@
 
 \bibitem[Bache and Wickham(2014)]{bach:wick:2014}
 S.~M. Bache and H.~Wickham.
-\newblock \emph{\texttt{magrittr}: A Forward-Pipe Operator for {R}}, 2014.
+\newblock \emph{magrittr: A Forward-Pipe Operator for {R}}, 2014.
 \newblock URL \url{https://CRAN.R-project.org/package=magrittr}.
 \newblock R package version 1.5.
 
@@ -17,14 +17,16 @@ G.~D. Berentsen and D.~Tj{\o}stheim.
   data using local {G}aussian correlation.
 \newblock \emph{Statistics and Computing}, 24\penalty0 (5):\penalty0 785--801,
   2014.
+\newblock URL \url{https://doi.org/10.1007/s11222-013-9402-8}.
 
 \bibitem[Berentsen et~al.(2014)Berentsen, Kleppe, and
   Tj{\o}stheim]{bere:klep:tjos:2014}
 G.~D. Berentsen, T.~Kleppe, and D.~Tj{\o}stheim.
-\newblock Introducing \texttt{localgauss}, an {R}-package for estimating and
-  visualizing local {G}aussian correlation.
+\newblock Introducing localgauss, an {R}-package for estimating and visualizing
+  local {G}aussian correlation.
 \newblock \emph{Journal of Statistical Software}, 56\penalty0 (12):\penalty0
   1--18, 2014.
+\newblock URL \url{https://doi.org/10.18637/jss.v056.i12}.
 
 \bibitem[Datastream(2018)]{datastream}
 Datastream, 2018.
@@ -35,12 +37,12 @@ K.~J. Forbes and R.~Rigobon.
   comovements.
 \newblock \emph{The Journal of Finance}, 57\penalty0 (5):\penalty0 2223--2261,
   2002.
+\newblock URL \url{https://doi.org/10.1111/0022-1082.00494}.
 
 \bibitem[Genz et~al.(2018)Genz, Bretz, Miwa, Mi, Leisch, Scheipl, and
   Hothorn]{gentz:etal:2018}
 A.~Genz, F.~Bretz, T.~Miwa, X.~Mi, F.~Leisch, F.~Scheipl, and T.~Hothorn.
-\newblock \emph{\texttt{mvtnorm}: Multivariate Normal and t Distributions},
-  2018.
+\newblock \emph{mvtnorm: Multivariate Normal and t Distributions}, 2018.
 \newblock URL \url{https://CRAN.R-project.org/package=mvtnorm}.
 \newblock R package version 1.0-8.
 
@@ -49,18 +51,20 @@ C.~W. Granger.
 \newblock Testing for causality: a personal viewpoint.
 \newblock \emph{Journal of Economic Dynamics and control}, 2:\penalty0
   329--352, 1980.
+\newblock URL \url{https://doi.org/10.1016/0165-1889(80)90069-X}.
 
 \bibitem[Hayfield and Racine(2008)]{hayf:raci:2008}
 T.~Hayfield and J.~S. Racine.
-\newblock Nonparametric econometrics: The \texttt{np} package.
+\newblock Nonparametric econometrics: The np package.
 \newblock \emph{Journal of Statistical Software}, 27\penalty0 (5), 2008.
-\newblock URL \url{http://www.jstatsoft.org/v27/i05/}.
+\newblock URL \url{https://doi.org/10.3929/ethz-b-000073064}.
 
 \bibitem[Hjort and Jones(1996)]{hjor:jone:1996}
 N.~Hjort and M.~Jones.
 \newblock Locally parametric nonparametric density estimation.
 \newblock \emph{Annals of Statistics}, 24\penalty0 (4):\penalty0 1619--1647,
   1996.
+\newblock URL \url{https://doi.org/10.1214/aos/1032298288}.
 
 \bibitem[Johnson and Wichern(2007)]{john:wich:2007}
 R.~A. Johnson and D.~W. Wichern.
@@ -69,8 +73,8 @@ R.~A. Johnson and D.~W. Wichern.
 
 \bibitem[Jordanger(2018)]{jord:2018}
 L.~A. Jordanger.
-\newblock \emph{\texttt{localgaussSpec}: An R-package for local {G}aussian
-  spectral analysis}, 2018.
+\newblock \emph{localgaussSpec: An R-package for local {G}aussian spectral
+  analysis}, 2018.
 \newblock URL \url{https://github.com/LAJordanger/localgaussSpec}.
 \newblock R package.
 
@@ -85,6 +89,7 @@ H.~R. Kunsch.
 \newblock The jackknife and the bootstrap for general stationary observations.
 \newblock \emph{The Annals of Statistics}, 17\penalty0 (3):\penalty0
   1217--1241, 1989.
+\newblock URL \url{https://doi.org/10.1214/aos/1176347265}.
 
 \bibitem[Lacal and Tj{\o}stheim(2017)]{laca:tjos:2017}
 V.~Lacal and D.~Tj{\o}stheim.
@@ -106,8 +111,8 @@ H.~Otneim.
 
 \bibitem[Otneim(2019)]{otne:2019}
 H.~Otneim.
-\newblock \emph{\texttt{lg}: Locally Gaussian Distributions: Estimation and
-  Methods}, 2019.
+\newblock \emph{lg: Locally Gaussian Distributions: Estimation and Methods},
+  2019.
 \newblock URL \url{https://CRAN.R-project.org/package=lg}.
 \newblock R package version 0.4.0.
 
@@ -155,7 +160,7 @@ D.~Tj{\o}stheim and K.~O. Hufthammer.
 
 \bibitem[Wickham(2016)]{wick:2016}
 H.~Wickham.
-\newblock \emph{\texttt{ggplot2}: Elegant Graphics for Data Analysis}.
+\newblock \emph{ggplot2: Elegant Graphics for Data Analysis}.
 \newblock Springer-Verlag New York, 2016.
 \newblock ISBN 978-3-319-24277-4.
 \newblock URL \url{http://ggplot2.org}.
@@ -163,7 +168,7 @@ H.~Wickham.
 \bibitem[Wickham et~al.(2018)Wickham, François, Henry, and
   Müller]{wick:fran:mull:2018}
 H.~Wickham, R.~François, L.~Henry, and K.~Müller.
-\newblock \emph{\texttt{dplyr}: A Grammar of Data Manipulation}, 2018.
+\newblock \emph{dplyr: A Grammar of Data Manipulation}, 2018.
 \newblock URL \url{https://CRAN.R-project.org/package=dplyr}.
 \newblock R package version 0.7.6.
 
